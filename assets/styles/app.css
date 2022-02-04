@@ -1,1 +1,34 @@
 @import "vendor/index.css";
+:root {
+    --main-color: #5C81B9;
+}
+.logo{
+    font-size: 2.4rem;
+}
+
+#public-nav{
+    background-color: var(--main-color);
+    font-size: 1.2rem;
+}
+.big-title {
+    font-size: 3.5rem;
+}
+.big-button{
+    font-size: 3rem;
+}
+.btn-primary{
+    color: #fff;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #416396;
+    border-color: #416396;
+}
+
+.px-7-9 {
+    padding-right: 7.8rem;
+    padding-left: 7.9rem;
+}
