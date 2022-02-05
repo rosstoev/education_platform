@@ -8,7 +8,9 @@
         {% endblock %}
     </head>
     <body>
+    {% block navigation %}
         {% include 'components/navigation.html.twig' %}
+    {% endblock %}
         {% block body %}
         {% endblock %}
     </body>

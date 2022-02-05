@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('libraries', './assets/js/entries/libraries.js')
     .addEntry('app', './assets/js/entries/app.js')
+    .addEntry('register', './assets/js/entries/register.js')
 
     .addStyleEntry('styles', './assets/styles/app.css')
 
