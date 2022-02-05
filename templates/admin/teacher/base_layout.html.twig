@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block title %}Преподавателски админ панел{% endblock %}
+{% block body %}
+    <div class="wrapper">
+        {% include "admin/components/teacher/top.navigation.html.twig" %}
+        {% include "admin/components/teacher/side_navigation.html.twig" %}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

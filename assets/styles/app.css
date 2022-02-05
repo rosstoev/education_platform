@@ -1,4 +1,6 @@
 @import "vendor/index.css";
+@import "components/admin.css";
+
 :root {
     --main-color: #5C81B9;
 }
@@ -10,6 +12,10 @@
     background-color: var(--main-color);
     font-size: 1.2rem;
 }
+.nav-color-teacher{
+    background-color: var(--main-color);
+}
+
 .big-title {
     font-size: 3.5rem;
 }

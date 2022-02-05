@@ -1,0 +1,39 @@
+{% set pathName = app.request.attributes.get('_route') %}
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{ path('teacher_dashboard') }}" class="brand-link">
+        <i class="bi bi-mortarboard-fill"></i>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <nav class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            John Doe
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                    <a href="#" class="nav-link {% if pathName == 'teacher_dashboard' %}active{% endif %}">
+                        <i class="nav-icon fas fa-house-user"></i>
+                        <p>
+                            Начало
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

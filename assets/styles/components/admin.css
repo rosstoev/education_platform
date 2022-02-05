@@ -1,0 +1,7 @@
+.brand-link {
+    padding-left: 40%;
+    font-size: 3rem;
+}
+.sidebar-mini.sidebar-collapse.layout-fixed .brand-link {
+    padding-left: 10%;
+}

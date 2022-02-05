@@ -4,4 +4,5 @@ window.$ = $;
 
 import "bootstrap";
 import "select2";
-import "fullcalendar";
+import "admin-lte";
+import 'fullcalendar/main.min';
