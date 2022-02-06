@@ -28,6 +28,10 @@
     border-color: var(--main-color);
 }
 
+.active-blue{
+    background-color: var(--main-color)!important;
+}
+
 .btn-primary:hover {
     color: #fff;
     background-color: #416396;

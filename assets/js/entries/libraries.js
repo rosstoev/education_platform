@@ -8,9 +8,7 @@ import "select2";
 import * as moment from 'moment';
 window.moment = moment;
 
-// import "admin-lte/plugins/fullcalendar/main.min";
-// import 'fullcalendar/main.min';
-
+import "admin-lte/dist/js/adminlte.min";
 import {Calendar} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
