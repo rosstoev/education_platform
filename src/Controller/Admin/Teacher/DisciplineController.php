@@ -24,8 +24,8 @@ class DisciplineController extends AbstractController
     /**
      * @Route ("", name="new")
      */
-    public function create()
+    public function create(): Response
     {
-
+        return $this->render('admin/teacher/pages/discipline/new.html.twig');
     }
 }
