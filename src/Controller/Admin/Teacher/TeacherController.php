@@ -17,6 +17,6 @@ class TeacherController extends AbstractController
      */
     public function dashboard()
     {
-        return $this->render('admin/teacher/dashboard.html.twig');
+        return $this->render('admin/teacher/pages/dashboard.html.twig');
     }
 }

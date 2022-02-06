@@ -24,6 +24,7 @@ Encore
     .addEntry('app', './assets/js/entries/app.js')
     .addEntry('register', './assets/js/entries/register.js')
     .addEntry('calendar', './assets/js/entries/calendar.js')
+    .addEntry('admin', './assets/js/entries/admin.js')
 
     .addStyleEntry('styles', './assets/styles/app.css')
 

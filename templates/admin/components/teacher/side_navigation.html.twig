@@ -1,5 +1,8 @@
 {% set pathName = app.request.attributes.get('_route') %}
 <!-- Main Sidebar Container -->
+{% if 'teacher_discipline' in pathName %}
+    {% set activeLinkDiscipline = true %}
+{% endif %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ path('teacher_dashboard') }}" class="brand-link">
@@ -24,7 +27,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link {% if pathName == 'teacher_dashboard' %}active-blue{% endif %}">
+                    <a href="{{ path('teacher_dashboard') }}" class="nav-link {% if pathName == 'teacher_dashboard' %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>
                             Начало
@@ -32,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link {% if activeLinkDiscipline is defined %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-book-open"></i>
                         <p>
                             Учебен процес
@@ -41,7 +44,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{ path('teacher_discipline_list') }}" class="nav-link {% if activeLinkDiscipline is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Дисциплини</p>
                             </a>
