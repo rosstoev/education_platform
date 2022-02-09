@@ -28,4 +28,20 @@ class DisciplineController extends AbstractController
     {
         return $this->render('admin/teacher/pages/discipline/new.html.twig');
     }
+
+    /**
+     * @Route ("/{discipline}", name="show")
+     */
+    public function show(int $discipline)
+    {
+        return $this->render("admin/teacher/pages/discipline/show.html.twig");
+    }
+
+    /**
+     * @Route ("/{discipline}/edit", name="edit")
+     */
+    public function edit(int $discipline): Response
+    {
+        return $this->render('admin/teacher/pages/discipline/new.html.twig');
+    }
 }
