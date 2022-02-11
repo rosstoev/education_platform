@@ -14,6 +14,7 @@ import "admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min";
 import "admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
 import "admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
 import "admin-lte/plugins/select2/js/select2.full.min";
+import "admin-lte/plugins/inputmask/jquery.inputmask.min";
 
 import {Calendar} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';

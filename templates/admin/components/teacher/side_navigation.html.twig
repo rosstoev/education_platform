@@ -2,6 +2,8 @@
 <!-- Main Sidebar Container -->
 {% if 'teacher_discipline' in pathName %}
     {% set activeLinkDiscipline = true %}
+    {% elseif 'teacher_group' in pathName %}
+    {% set activeLinkGroup = true %}
 {% endif %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -35,7 +37,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {% if activeLinkDiscipline is defined %}active-blue{% endif %}">
+                    <a href="#" class="nav-link {% if activeLinkDiscipline is defined  or activeLinkGroup is defined%}active-blue{% endif %}">
                         <i class="nav-icon fas fa-book-open"></i>
                         <p>
                             Учебен процес
@@ -50,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('teacher_group_list') }}" class="nav-link {% if activeLinkGroup is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Групи</p>
                             </a>
