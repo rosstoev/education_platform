@@ -4,6 +4,8 @@
     {% set activeLinkDiscipline = true %}
     {% elseif 'teacher_group' in pathName %}
     {% set activeLinkGroup = true %}
+    {% elseif 'teacher_lecture' in pathName  %}
+    {% set activeLinkLecture = true %}
 {% endif %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -37,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {% if activeLinkDiscipline is defined  or activeLinkGroup is defined%}active-blue{% endif %}">
+                    <a href="#" class="nav-link {% if activeLinkDiscipline is defined  or activeLinkGroup is defined or activeLinkLecture is defined%}active-blue{% endif %}">
                         <i class="nav-icon fas fa-book-open"></i>
                         <p>
                             Учебен процес
@@ -58,7 +60,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('teacher_lecture_list') }}" class="nav-link {% if activeLinkLecture is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Занятия</p>
                             </a>

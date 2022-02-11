@@ -15,6 +15,8 @@ import "admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min";
 import "admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min";
 import "admin-lte/plugins/select2/js/select2.full.min";
 import "admin-lte/plugins/inputmask/jquery.inputmask.min";
+import "bootstrap-datepicker";
+import "bootstrap-datepicker/js/locales/bootstrap-datepicker.bg";
 
 import {Calendar} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
