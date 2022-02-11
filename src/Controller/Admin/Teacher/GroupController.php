@@ -21,4 +21,30 @@ class GroupController extends AbstractController
     {
         return $this->render("admin/teacher/pages/group/list.html.twig");
     }
+
+    /**
+     * @Route ("", name="new")
+     */
+    public function create(): Response
+    {
+        return $this->render("admin/teacher/pages/group/manage.html.twig");
+    }
+
+    /**
+     * @Route ("/{group}/edit", name="edit")
+     */
+    public function edit(int $group): Response
+    {
+        return $this->render("admin/teacher/pages/group/manage.html.twig");
+    }
+
+    /**
+     * @Route ("/{group}", name="show")
+     */
+    public function show(int $group): Response
+    {
+        return $this->render('admin/teacher/pages/group/show.html.twig', [
+            'group' => $group
+        ]);
+    }
 }

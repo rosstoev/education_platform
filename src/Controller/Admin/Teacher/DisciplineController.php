@@ -26,7 +26,7 @@ class DisciplineController extends AbstractController
      */
     public function create(): Response
     {
-        return $this->render('admin/teacher/pages/discipline/new.html.twig');
+        return $this->render('admin/teacher/pages/discipline/manage.html.twig');
     }
 
     /**
@@ -42,6 +42,6 @@ class DisciplineController extends AbstractController
      */
     public function edit(int $discipline): Response
     {
-        return $this->render('admin/teacher/pages/discipline/new.html.twig');
+        return $this->render('admin/teacher/pages/discipline/manage.html.twig');
     }
 }
