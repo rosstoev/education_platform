@@ -47,4 +47,12 @@ class GroupController extends AbstractController
             'group' => $group
         ]);
     }
+
+    /**
+     * @Route ("/{group}/delete", name="delete")
+     */
+    public function delete(int $group)
+    {
+
+    }
 }

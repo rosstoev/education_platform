@@ -7,4 +7,18 @@ $(document).ready(function (){
         format: 'dd/mm/yyyy',
         autoclose: true,
     });
+
+    $('.daterange-field').daterangepicker({
+        singleDatePicker: true,
+        autoClose: true,
+        autoApply: true,
+        timePicker: true,
+        timePicker24Hour: true,
+        locale: {
+            format: 'DD/MM/YYYY HH:mm',
+            daysOfWeek: ["Нед", "Пон", "Вто", "Сря", "Чет", "Пет", "Съб"],
+            monthNames: ["Ян", "Фев", "Мар", "Апр", "Май", "Юни", "Юли", "Авг", "Сеп", "Окт", "Ное", "Дек"]
+        }
+    });
+
 });

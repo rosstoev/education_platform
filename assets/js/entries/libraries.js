@@ -17,6 +17,7 @@ import "admin-lte/plugins/select2/js/select2.full.min";
 import "admin-lte/plugins/inputmask/jquery.inputmask.min";
 import "bootstrap-datepicker";
 import "bootstrap-datepicker/js/locales/bootstrap-datepicker.bg";
+import "admin-lte/plugins/daterangepicker";
 
 import {Calendar} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';

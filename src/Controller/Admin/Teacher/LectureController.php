@@ -20,4 +20,39 @@ class LectureController extends AbstractController
     {
         return $this->render("admin/teacher/pages/lecture/list.html.twig");
     }
+
+    /**
+     * @Route ("", name="new")
+     */
+    public function create(): Response
+    {
+        return $this->render("admin/teacher/pages/lecture/manage.html.twig");
+    }
+
+    /**
+     * @Route ("/{lecture}/edit", name="edit")
+     */
+    public function edit(int $lecture): Response
+    {
+        return $this->render("admin/teacher/pages/lecture/manage.html.twig");
+    }
+
+    /**
+     * @Route ("/{lecture}", name="show")
+     */
+    public function show(int $lecture): Response
+    {
+
+        return $this->render("admin/teacher/pages/lecture/show.html.twig", [
+            'lecture' => $lecture
+        ]);
+    }
+
+    /**
+     * @Route ("/{lecture}/delete", name="delete")
+     */
+    public function delete(int $lecture)
+    {
+
+    }
 }

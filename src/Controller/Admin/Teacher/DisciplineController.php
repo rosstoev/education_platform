@@ -44,4 +44,13 @@ class DisciplineController extends AbstractController
     {
         return $this->render('admin/teacher/pages/discipline/manage.html.twig');
     }
+
+    /**
+     * @Route ("/{discipline}/delete", name="delete")
+     */
+    public function delete(int $discipline)
+    {
+
+    }
+
 }

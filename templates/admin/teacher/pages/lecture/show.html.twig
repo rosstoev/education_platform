@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Група {{ group }}</h1>
+                    <h1 class="m-0">Занятие {{ lecture }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -17,7 +17,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Група {{ group }}</h3>
+                <h3 class="card-title">Занятие {{ lecture }}</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -31,32 +31,17 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div> Учебна година: 2020-2021</div>
+                                    <div> Дата на провеждане: 01.01.2021 13:00</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> Създадена на: 01.01.2021</div>
+                                    <div> Група: 1 | 2019-2020</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <h6>Ученици:</h6>
-                                    <ul class="list-group list-group-numbered">
-                                        <li class="list-group-item"><a href="#">John Doe</a></li>
-                                        <li class="list-group-item"><a href="#">John Doe</a></li>
-                                        <li class="list-group-item"><a href="#">John Doe</a></li>
-                                    </ul>
+                                    <div> Дисциплина: <a href="{{ path('teacher_discipline_show', {"discipline" : 1}) }}">Lorem Ipsum</a></div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <h6>Дисциплини:</h6>
-                                    <ul class="list-group list-group-numbered">
-                                        <li class="list-group-item">
-                                            <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem Ipsum</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem Ipsum</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem Ipsum</a>
-                                        </li>
-                                    </ul>
+                                    <div>Описание:</div>
+                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur corporis distinctio dolore doloremque eius esse est harum laboriosam, libero maiores molestiae nostrum, officiis praesentium recusandae tempora, vitae voluptate voluptatibus?</span><span>Iusto laboriosam quasi tenetur. Animi aspernatur beatae distinctio doloribus ea eius id mollitia quo, voluptatem voluptatum! Accusamus aliquam amet iure sapiente! Consectetur dolore pariatur qui rem sapiente. In, maiores, odio.</span><span>Aperiam, beatae consectetur consequuntur corporis delectus dignissimos dolorem ducimus fugit impedit labore laboriosam libero molestias, natus necessitatibus nobis odit praesentium quidem quis quo quos ratione recusandae sit soluta, vitae voluptatibus.</span><span>A culpa cupiditate deserunt dicta dolorem dolores ea earum eius esse explicabo ipsum laboriosam minus nam, nisi nulla numquam odit omnis optio praesentium provident, quisquam ratione soluta, unde voluptates voluptatibus?</span><span>A, aperiam cumque deleniti, deserunt dolor doloremque dolorum fuga fugit hic id in ipsam laborum maxime molestiae mollitia quaerat quam quas quibusdam rem reprehenderit, saepe sapiente suscipit tempora velit voluptatum?</span></p>
                                 </div>
                             </div>
                         </div>
