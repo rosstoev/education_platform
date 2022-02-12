@@ -1,0 +1,184 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Създаване на тест</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <!-- form start -->
+                        <form>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="title">Заглавие</label>
+                                            <input type="text" class="form-control" name="title">
+                                        </div>
+                                        <div class="card bg-light my-3 p-2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="questionType">Тип въпрос</label>
+                                                        <div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="questionType" id="open-question"
+                                                                       value="teacher">
+                                                                <label class="form-check-label" for="open-question">Отворен</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="questionType" id="question-with-answers"
+                                                                       value="student">
+                                                                <label class="form-check-label"
+                                                                       for="question-with-answers">С отговори</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-0 p-0 question-content">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="question">Въпрос</label>
+                                                            <textarea name="question" class="form-control" id="question"
+                                                                      rows="3"
+                                                                      placeholder="Същност на въпроса"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <label for="">Мин. дължина на отговора</label>
+                                                                    <input type="number" name="" class="form-control"
+                                                                           placeholder="Брой думи">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <label for="">Макс. точки</label>
+                                                                    <input type="number" name="" class="form-control"
+                                                                           placeholder="Брой точки">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card bg-light my-3 p-2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="questionType">Тип въпрос</label>
+                                                        <div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="questionType" id="open-question"
+                                                                       value="teacher">
+                                                                <label class="form-check-label" for="open-question">Отворен</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="questionType" id="question-with-answers"
+                                                                       value="student">
+                                                                <label class="form-check-label"
+                                                                       for="question-with-answers">С отговори</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-0 p-0 question-content">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="question">Въпрос</label>
+                                                            <textarea name="question" class="form-control" id="question"
+                                                                      rows="3"
+                                                                      placeholder="Същност на въпроса"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="border-bottom"></div>
+                                                    <div class="col-12">
+                                                        <div class="text-bold">Отговори:</div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <label for="">Отговор</label>
+                                                                    <input type="number" name="" class="form-control"
+                                                                           placeholder="Отговор">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <label for="">Верен</label>
+                                                                <div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                                        <label class="form-check-label" for="inlineRadio1">Да</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                                        <label class="form-check-label" for="inlineRadio2">Не</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <label for="">Точки</label>
+                                                                    <input type="number" name="" class="form-control"
+                                                                           placeholder="Брой точки">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <button type="button" class="btn btn-primary btn-block">Добави отговор <i class="fa fa-plus"></i></button>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <button type="button" class="btn btn-danger btn-block">Премахни отговор <i class="fa fa-minus"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-primary btn-block">Добави въпрос <i class="fa fa-plus"></i></button>
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="button" class="btn btn-danger btn-block">Премахни въпрос <i class="fa fa-minus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Създай</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
