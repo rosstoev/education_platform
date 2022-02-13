@@ -44,4 +44,12 @@ class TeacherController extends AbstractController
     {
 
     }
+
+    /**
+     * @Route ("/student/{student}", name="student_profile")
+     */
+    public function student(int $student): Response
+    {
+        return $this->render("admin/teacher/pages/profile/student-page.html.twig");
+    }
 }

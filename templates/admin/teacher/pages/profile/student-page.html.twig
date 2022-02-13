@@ -1,0 +1,59 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Профил</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Профил</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div> Имена: John Doe Doe</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div> email: john_doe@example.com</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div> курсов номер: 22005010</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div> мобиле номер: +359 888888888</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <a href="{{ path('teacher_messenger_send') }}" class="link-primary">Изпрати съобщение</a>
+            </div>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
