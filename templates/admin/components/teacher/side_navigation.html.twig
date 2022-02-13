@@ -10,6 +10,8 @@
     {% set activeLinkTest = true %}
     {% elseif "teacher_exam" in pathName %}
     {% set activeLinkExam = true %}
+    {% elseif "teacher_messenger" in pathName %}
+    {% set activeLinkMessenger = true %}
 {% endif %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -84,7 +86,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ path("teacher_messenger_inbox") }}" class="nav-link {% if activeLinkMessenger is defined %}active{% endif %}">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Съобщения
@@ -94,19 +96,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('teacher_messenger_send') }}" class="nav-link {% if "teacher_messenger_send" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Ново</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('teacher_messenger_inbox') }}" class="nav-link {% if "teacher_messenger_inbox" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Входящи</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ path('teacher_messenger_sended') }}" class="nav-link {% if "teacher_messenger_sended" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпратени</p>
                             </a>
