@@ -2,16 +2,18 @@
 <!-- Main Sidebar Container -->
 {% if 'teacher_discipline' in pathName %}
     {% set activeLinkDiscipline = true %}
-    {% elseif 'teacher_group' in pathName %}
+{% elseif 'teacher_group' in pathName %}
     {% set activeLinkGroup = true %}
-    {% elseif 'teacher_lecture' in pathName  %}
+{% elseif 'teacher_lecture' in pathName %}
     {% set activeLinkLecture = true %}
-    {% elseif 'teacher_test' in pathName %}
+{% elseif 'teacher_test' in pathName %}
     {% set activeLinkTest = true %}
-    {% elseif "teacher_exam" in pathName %}
+{% elseif "teacher_exam" in pathName %}
     {% set activeLinkExam = true %}
-    {% elseif "teacher_messenger" in pathName %}
+{% elseif "teacher_messenger" in pathName %}
     {% set activeLinkMessenger = true %}
+{% elseif "teacher_profile" in pathName %}
+    {% set activeLinkProfile = true %}
 {% endif %}
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -24,7 +26,7 @@
         <nav class="user-panel mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ path("teacher_profile") }}" class="nav-link {% if activeLinkProfile is defined %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             John Doe
@@ -37,7 +39,8 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ path('teacher_dashboard') }}" class="nav-link {% if pathName == 'teacher_dashboard' %}active-blue{% endif %}">
+                    <a href="{{ path('teacher_dashboard') }}"
+                       class="nav-link {% if pathName == 'teacher_dashboard' %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>
                             Начало
@@ -45,7 +48,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {% if activeLinkDiscipline is defined  or activeLinkGroup is defined or activeLinkLecture is defined or activeLinkTest is defined or activeLinkExam is defined%}active-blue{% endif %}">
+                    <a href="#"
+                       class="nav-link {% if activeLinkDiscipline is defined  or activeLinkGroup is defined or activeLinkLecture is defined or activeLinkTest is defined or activeLinkExam is defined %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-book-open"></i>
                         <p>
                             Учебен процес
@@ -54,31 +58,36 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ path('teacher_discipline_list') }}" class="nav-link {% if activeLinkDiscipline is defined %}active{% endif %}">
+                            <a href="{{ path('teacher_discipline_list') }}"
+                               class="nav-link {% if activeLinkDiscipline is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Дисциплини</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_group_list') }}" class="nav-link {% if activeLinkGroup is defined %}active{% endif %}">
+                            <a href="{{ path('teacher_group_list') }}"
+                               class="nav-link {% if activeLinkGroup is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Групи</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_lecture_list') }}" class="nav-link {% if activeLinkLecture is defined %}active{% endif %}">
+                            <a href="{{ path('teacher_lecture_list') }}"
+                               class="nav-link {% if activeLinkLecture is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Занятия</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_test_list') }}" class="nav-link {% if activeLinkTest is defined %}active{% endif %}">
+                            <a href="{{ path('teacher_test_list') }}"
+                               class="nav-link {% if activeLinkTest is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Тестове</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_exam_list') }}" class="nav-link {% if activeLinkExam is defined %}active{% endif %}">
+                            <a href="{{ path('teacher_exam_list') }}"
+                               class="nav-link {% if activeLinkExam is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпити</p>
                             </a>
@@ -86,7 +95,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path("teacher_messenger_inbox") }}" class="nav-link {% if activeLinkMessenger is defined %}active{% endif %}">
+                    <a href="{{ path("teacher_messenger_inbox") }}"
+                       class="nav-link {% if activeLinkMessenger is defined %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Съобщения
@@ -96,19 +106,22 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_send') }}" class="nav-link {% if "teacher_messenger_send" in pathName %}active{% endif %}">
+                            <a href="{{ path('teacher_messenger_send') }}"
+                               class="nav-link {% if "teacher_messenger_send" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Ново</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_inbox') }}" class="nav-link {% if "teacher_messenger_inbox" in pathName %}active{% endif %}">
+                            <a href="{{ path('teacher_messenger_inbox') }}"
+                               class="nav-link {% if "teacher_messenger_inbox" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Входящи</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_sended') }}" class="nav-link {% if "teacher_messenger_sended" in pathName %}active{% endif %}">
+                            <a href="{{ path('teacher_messenger_sended') }}"
+                               class="nav-link {% if "teacher_messenger_sended" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпратени</p>
                             </a>
