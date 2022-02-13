@@ -1,0 +1,86 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Изпит</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Изпит</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div>Дата на провеждане: 01.01.2021 15:00</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Време за провеждане: 40 минути</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Дисциплина: <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem ipsum</a></div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Токън: jXn2r5u7x!A%D*G-KaPdSgVkYp3s6v9y</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Тест: <a href="{{ path('teacher_test_show', {'test': 1})}}">Lorem ipsum</a></div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <form action="">
+                                        <div class="form-group">
+                                            <label for="group">Група</label>
+                                            <select class="form-control my-select2-js" name="discipline">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option disabled="disabled">California (disabled)</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Избери</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <a href="{{ path('teacher_exam_edit', {'exam' : 1}) }}" class=" btn btn-primary">Редактирай</a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ path('teacher_exam_delete', {'exam' : 1}) }}" class=" btn btn-danger">Изтрий</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}

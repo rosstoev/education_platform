@@ -4,7 +4,7 @@ $(document).ready(function (){
     //Date picker
     $('.datepicker-field').datepicker({
         language: 'bg',
-        format: 'dd/mm/yyyy',
+        format: 'dd.mm.yyyy',
         autoclose: true,
     });
 
@@ -15,7 +15,7 @@ $(document).ready(function (){
         timePicker: true,
         timePicker24Hour: true,
         locale: {
-            format: 'DD/MM/YYYY HH:mm',
+            format: 'DD.MM.YYYY HH:mm',
             daysOfWeek: ["Нед", "Пон", "Вто", "Сря", "Чет", "Пет", "Съб"],
             monthNames: ["Ян", "Фев", "Мар", "Апр", "Май", "Юни", "Юли", "Авг", "Сеп", "Окт", "Ное", "Дек"]
         }

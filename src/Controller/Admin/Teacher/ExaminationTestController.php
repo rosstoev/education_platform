@@ -22,7 +22,7 @@ class ExaminationTestController extends AbstractController
     }
 
     /**
-     * @Route ("/new", name="new")
+     * @Route ("", name="new")
      */
     public function create(): Response
     {
