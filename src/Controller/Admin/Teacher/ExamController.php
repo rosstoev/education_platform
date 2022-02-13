@@ -63,4 +63,28 @@ class ExamController extends AbstractController
 
         return $this->render('admin/teacher/pages/exam/add-student.html.twig');
     }
+
+    /**
+     * @Route ("/{exam}/finished/list", name="finished_exam_list")
+     */
+    public function finishedExamList(int $exam): Response
+    {
+        return $this->render("admin/teacher/pages/exam/finished/list.html.twig");
+    }
+
+    /**
+     * @Route ("/{exam}/finished/detail/{studentExam}", name="finished_exam_detail")
+     */
+    public function finishedExamDetail(int $exam, int $studentExam): Response
+    {
+        return $this->render("admin/teacher/pages/exam/finished/show.html.twig");
+    }
+
+    /**
+     * @Route ("/{exam}/finished/check/{studentExam}", name="finished_exam_check")
+     */
+    public function checkFinishedExam(int $exam, int $studentExam): Response
+    {
+        return $this->render('admin/teacher/pages/exam/finished/check.html.twig');
+    }
 }

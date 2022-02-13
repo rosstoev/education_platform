@@ -1,0 +1,92 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Проверка на изпит</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <form action="">
+                <div class="card-header">
+                    <h3 class="card-title">Проверка на изпит 1 на John Doe</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="evaluation">Оценка</label>
+                                        <select class="form-control" name="evaluation">
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 mt-4">
+                                    <div>Брой точки на изпита: 30</div>
+                                    <div>Брой точки на изпита: 25</div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="card bg-light my-3 p-2">
+                                        <div>Въпрос: Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
+                                        <div>Отговор: Vestibulum et rhoncus velit. Sed ut consequat ligula, nec mattis nunc.</div>
+                                        <div>Макс. точки: 5</div>
+                                        <div class="form-group col-2 p-0">
+                                            <label for="points">Точки:</label>
+                                            <input type="number" name="points" class="form-control" placeholder="Брой точки">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="card bg-light my-3 p-2">
+                                        <div>Въпрос: Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
+                                        <div>Отговор: </div>
+                                        <ul>
+                                            <li>dolor sit amet - Верен</li>
+                                        </ul>
+                                        <div>Макс. точки: 3</div>
+                                        <div>Получени точки: 3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="row justify-content-between">
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-primary">Изчисли</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Потвърди</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
