@@ -1,0 +1,96 @@
+{% extends "admin/student/base_layout.html.twig" %}
+{% set calendarEvents = [
+    {
+        title: 'All Day Event',
+        start: '2022-02-06',
+    },
+    {
+        title: 'Long Event',
+        start: '2022-02-01',
+        end: '2022-02-10'
+    },
+    {
+        groupId: 999,
+        title: 'Repeating Event',
+        start: '2022-02-07T16:00:00'
+    },
+    {
+        groupId: 999,
+        title: 'Repeating Event',
+        start: '2022-04-16T16:00:00'
+    },
+    {
+        title: 'Conference',
+        start: '2022-04-11',
+        end: '2022-04-13'
+    },
+    {
+        title: 'Meeting',
+        start: '2022-04-12T10:30:00',
+        end: '2022-01-12T12:30:00'
+    },
+    {
+        title: 'Lunch',
+        start: '2022-04-12T12:00:00'
+    },
+    {
+        title: 'Meeting',
+        start: '2022-04-12T14:30:00'
+    },
+    {
+        title: 'Happy Hour',
+        start: '2022-04-12T17:30:00'
+    },
+    {
+        title: 'Dinner',
+        start: '2022-04-12T20:00:00'
+    },
+    {
+        title: 'Birthday Party',
+        start: '2022-04-13T07:00:00'
+    },
+    {
+        title: 'Click for Google',
+        url: 'http://google.com/',
+        start: '2022-04-28'
+    }
+] %}
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Календар</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <!-- THE CALENDAR -->
+                            <div id="calendar"></div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        const calendarEvents = JSON.parse('{{ calendarEvents|json_encode() }}'.replace(/&quot;/g, '"'));
+    </script>
+
+    {{ encore_entry_script_tags('calendar') }}
+{% endblock %}

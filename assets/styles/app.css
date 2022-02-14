@@ -3,6 +3,7 @@
 
 :root {
     --main-color: #5C81B9;
+    --main-student-color: #C9E265;
 }
 .logo{
     font-size: 2.4rem;
@@ -14,6 +15,10 @@
 }
 .nav-color-teacher{
     background-color: var(--main-color);
+}
+
+.nav-color-student {
+    background-color: var(--main-student-color);
 }
 
 .big-title {
@@ -30,6 +35,11 @@
 
 .active-blue{
     background-color: var(--main-color)!important;
+}
+
+.active-green {
+    background-color: var(--main-student-color)!important;
+    color: #646464!important;
 }
 
 .btn-primary:hover {
