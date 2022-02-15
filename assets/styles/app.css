@@ -32,6 +32,17 @@
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
+.btn-secondary {
+    color: white;
+    background-color: var(--main-student-color);
+    border-color: var(--main-student-color);
+}
+
+.btn-secondary:hover{
+    color: white;
+    background-color: #9aac4f;
+    border-color: #9aac4f;
+}
 
 .active-blue{
     background-color: var(--main-color)!important;
