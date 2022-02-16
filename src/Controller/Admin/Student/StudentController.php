@@ -21,4 +21,12 @@ class StudentController extends AbstractController
     {
         return $this->render("admin/student/pages/dashboard.html.twig");
     }
+
+    /**
+     * @Route ("/profile/{student}", name="profile", defaults={"student": null})
+     */
+    public function profile(?int $student): Response
+    {
+        return $this->render('admin/student/pages/profile/show.html.twig');
+    }
 }
