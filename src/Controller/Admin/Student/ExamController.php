@@ -20,4 +20,12 @@ class ExamController extends AbstractController
     {
         return $this->render('admin/student/pages/exam/list.html.twig');
     }
+
+    /**
+     * @Route ("/result/{examToken}", name="result")
+     */
+    public function result(int $examToken): Response
+    {
+        return $this->render('admin/student/pages/exam/result.html.twig');
+    }
 }
