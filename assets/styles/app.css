@@ -33,7 +33,7 @@
     border-color: var(--main-color);
 }
 .btn-secondary {
-    color: white;
+    color: #000000;
     background-color: var(--main-student-color);
     border-color: var(--main-student-color);
 }

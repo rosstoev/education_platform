@@ -8,7 +8,7 @@
     {% set activeLinkLecture = true %}
 {% elseif 'teacher_test' in pathName %}
     {% set activeLinkTest = true %}
-{% elseif "teacher_exam" in pathName %}
+{% elseif "student_exam" in pathName %}
     {% set activeLinkExam = true %}
 {% elseif "teacher_messenger" in pathName %}
     {% set activeLinkMessenger = true %}
@@ -72,7 +72,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_lecture_list') }}"
+                            <a href="{{ path('student_exam_list') }}"
                                class="nav-link {% if activeLinkExam is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпити</p>
