@@ -6,11 +6,11 @@
     {% set activeLinkGroup = true %}
 {% elseif 'student_lecture' in pathName %}
     {% set activeLinkLecture = true %}
-{% elseif 'teacher_test' in pathName %}
+{% elseif 'student_test' in pathName %}
     {% set activeLinkTest = true %}
 {% elseif "student_exam" in pathName %}
     {% set activeLinkExam = true %}
-{% elseif "teacher_messenger" in pathName %}
+{% elseif "student_messenger" in pathName %}
     {% set activeLinkMessenger = true %}
 {% elseif "student_profile" in pathName %}
     {% set activeLinkProfile = true %}
@@ -73,7 +73,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ path('student_exam_list') }}"
-                               class="nav-link {% if activeLinkExam is defined %}active{% endif %}">
+                               class="nav-link {% if activeLinkExam is defined or activeLinkTest is defined %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпити</p>
                             </a>
@@ -82,7 +82,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ path("teacher_messenger_inbox") }}"
-                       class="nav-link {% if activeLinkMessenger is defined %}active-blue{% endif %}">
+                       class="nav-link {% if activeLinkMessenger is defined %}active-green{% endif %}">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Съобщения
@@ -92,22 +92,22 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_send') }}"
-                               class="nav-link {% if "teacher_messenger_send" in pathName %}active{% endif %}">
+                            <a href="{{ path('student_messenger_send_new') }}"
+                               class="nav-link {% if "student_messenger_send_new" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Ново</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_inbox') }}"
-                               class="nav-link {% if "teacher_messenger_inbox" in pathName %}active{% endif %}">
+                            <a href="{{ path('student_messenger_inbox') }}"
+                               class="nav-link {% if "student_messenger_inbox" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Входящи</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_sended') }}"
-                               class="nav-link {% if "teacher_messenger_sended" in pathName %}active{% endif %}">
+                            <a href="{{ path('student_messenger_sended') }}"
+                               class="nav-link {% if "student_messenger_sended" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпратени</p>
                             </a>

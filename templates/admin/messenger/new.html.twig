@@ -1,4 +1,16 @@
-{% extends "admin/teacher/base_layout.html.twig" %}
+{% if teacher is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/teacher/base_layout.html.twig',
+        'buttonColor' : 'btn-primary'
+    } %}
+{% elseif student is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/student/base_layout.html.twig',
+        'buttonColor' : 'btn-secondary'
+    } %}
+{% endif %}
+
+{% extends pageComponents.layout %}
 
 {% block content %}
     <div class="content-header">
@@ -42,7 +54,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Изпрати</button>
+                                <button type="submit" class="btn {{ pageComponents.buttonColor }}">Изпрати</button>
                             </div>
                         </div>
                     </form>

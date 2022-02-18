@@ -1,4 +1,16 @@
-{% extends "admin/teacher/base_layout.html.twig" %}
+{% if teacher is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/teacher/base_layout.html.twig',
+        'path' : 'teacher'
+    } %}
+{% elseif student is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/student/base_layout.html.twig',
+        'path' : 'student'
+    } %}
+{% endif %}
+
+{% extends pageComponents.layout %}
 
 {% block content %}
     <div class="content-header">
@@ -43,7 +55,8 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <a href="{{ path("teacher_messenger_send") }}" class="text-bold"><i class="fas fa-comments"></i> Отговор</a>
+                            <a href="{{ path(pageComponents.path~"_messenger_send_new") }}" class="text-bold"><i
+                                        class="fas fa-comments"></i> Отговор</a>
                         </div>
                     </div>
                 </div>

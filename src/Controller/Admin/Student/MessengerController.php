@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Admin\Teacher;
+namespace App\Controller\Admin\Student;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route ("/teacher/messenger", name="teacher_messenger_")
+ * @Route ("/student/messenger", name="student_messenger_")
  */
 class MessengerController extends AbstractController
 {
@@ -20,7 +20,7 @@ class MessengerController extends AbstractController
     {
 
         return $this->render("admin/messenger/inbox.html.twig", [
-            'teacher' => true
+            'student' => true
         ]);
     }
 
@@ -30,7 +30,7 @@ class MessengerController extends AbstractController
     public function read(int $message): Response
     {
         return $this->render("admin/messenger/read.html.twig", [
-            'teacher' => true
+            'student' => true
         ]);
     }
 
@@ -40,7 +40,7 @@ class MessengerController extends AbstractController
     public function sendNew(): Response
     {
         return $this->render("admin/messenger/new.html.twig", [
-            'teacher' => true
+            'student' => true
         ]);
     }
 
@@ -50,7 +50,7 @@ class MessengerController extends AbstractController
     public function sended(): Response
     {
         return $this->render("admin/messenger/sended.html.twig", [
-            'teacher' => true
+            'student' => true
         ]);
     }
 }
