@@ -23,11 +23,27 @@ class StudentController extends AbstractController
     }
 
     /**
-     * @Route ("/profile/{student}", name="profile", defaults={"student": null})
+     * @Route ("/profile/show/{student}", name="profile", defaults={"student": null})
      */
     public function profile(?int $student): Response
     {
         return $this->render('admin/student/pages/profile/show.html.twig');
+    }
+
+    /**
+     * @Route ("/profile/edit", name="profile_edit")
+     */
+    public function editProfile():Response
+    {
+        return $this->render('admin/student/pages/profile/manage.html.twig');
+    }
+
+    /**
+     * @Route ("/profile/delete", name="profile_delete")
+     */
+    public function deleteProfile()
+    {
+
     }
 
     /**
