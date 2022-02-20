@@ -1,0 +1,102 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Тест {{ test }}</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Тест {{ test }}</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div> Създадена на: 01.01.2021 13:00</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div> Макс. брой точки</div>
+                                </div>
+                                <div class="co-12 text-bold">
+                                    Въпроси:
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="card bg-light my-3 p-2">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span class="text-bold">Въпрос:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Consectetur corporis deleniti doloremque dolores ea, enim est et,
+                                                excepturi magnam mollitia necessitatibus nostrum obcaecati odit quaerat
+                                                recusandae repellat repellendus vero voluptas.
+                                            </div>
+                                            <div class="col-12">
+                                                Минимална дължина на отговора: 100 думи
+                                            </div>
+                                            <div class="col-12">
+                                                <span class="text-bold">Макс. точки:</span> 10
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="card bg-light my-3 p-2">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span class="text-bold">Въпрос:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                Consectetur corporis deleniti doloremque dolores ea, enim est et,
+                                                excepturi magnam mollitia necessitatibus nostrum obcaecati odit
+                                                quaerat recusandae repellat repellendus vero voluptas.
+                                            </div>
+                                            <div class="col-12 text-bold">Избори:</div>
+                                            <div class="col-12">
+                                                <ul>
+                                                    <li>dolor sit amet - Верен | точки: 3</li>
+                                                    <li>dolor sit amet - Грешен | точки: 0</li>
+                                                    <li>dolor sit amet - Грешен | точки: 0</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-12"><span class="text-bold">Макс. точки:</span> 3</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <a href="{{ path('teacher_test_edit', {'test' : 1}) }}" class=" btn btn-primary">Редактирай</a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ path('teacher_test_delete', {'test' : 1}) }}" class=" btn btn-danger">Изтрий</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}

@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="bg">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Онлайн обучение{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('styles') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}
-        {% endblock %}
-    </body>
-    {% block javascripts %}
-        {{ encore_entry_script_tags('libraries') }}
-        {{ encore_entry_script_tags('app') }}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Онлайн обучение{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('styles') }}
     {% endblock %}
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+{% block body %}
+    {% block navigation %}
+        {% include 'components/navigation.html.twig' %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+{% endblock %}
+</body>
+{% block javascripts %}
+    {{ encore_entry_script_tags('libraries') }}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 </html>

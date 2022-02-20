@@ -22,6 +22,9 @@ Encore
      */
     .addEntry('libraries', './assets/js/entries/libraries.js')
     .addEntry('app', './assets/js/entries/app.js')
+    .addEntry('register', './assets/js/entries/register.js')
+    .addEntry('calendar', './assets/js/entries/calendar.js')
+    .addEntry('admin', './assets/js/entries/admin.js')
 
     .addStyleEntry('styles', './assets/styles/app.css')
 
@@ -69,7 +72,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();

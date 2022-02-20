@@ -1,0 +1,65 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Създаване на група</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <!-- form start -->
+                        <form>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Номер на курс/клас</label>
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Номер на курс/клас">
+                                </div>
+                                <div class="form-group">
+                                    <!-- Date yyyy -->
+                                    <div class="form-group">
+                                        <label>Учебна година</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i
+                                                                    class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control year-mask"
+                                                   data-inputmask-alias="datetime"
+                                                   data-inputmask-inputformat="yyyy" data-mask>
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ученици</label>
+                                    <select class="form-control my-select2-js" name="students" multiple="multiple" data-placeholder="Избери..." style="width: 100%;">
+                                        <option>Alabama</option>
+                                        <option>Alaska</option>
+                                        <option disabled="disabled">California (disabled)</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Създай</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

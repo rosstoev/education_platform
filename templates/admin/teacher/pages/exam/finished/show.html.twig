@@ -1,0 +1,70 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Изпит 1</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Изпит 1</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div>На: <a href="">John Doe</a></div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Дисциплина: <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem ipsum</a></div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Дата за провеждане: 01.01.2021 13:00</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Завършен на: 01.01.2021 13:00</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Токън: jXn2r5u7x!A%D*G-KaPdSgVkYp3s6v9y</div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div>Оценка: </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <a href="{{ path('teacher_exam_finished_exam_check', {'exam' : 1, 'studentExam' : 1}) }}" class=" btn btn-primary">Провери</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}

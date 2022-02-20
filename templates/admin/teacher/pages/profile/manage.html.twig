@@ -1,0 +1,69 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Профил</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <!-- form start -->
+                        <form>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="firstName">Име</label>
+                                            <input type="text" class="form-control" id="firstName" placeholder="Име">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="secondName">Презиме</label>
+                                            <input type="text" class="form-control" id="secondName" placeholder="Презиме">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName">Фамилия</label>
+                                            <input type="text" class="form-control" id="lastName" placeholder="Фамилия">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="email">Имейл адрес</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Имейл адрес">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="mb-1">
+                                                <label class="" for="mobileNumber">Мобилен номер</label>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="mobile-code">+359</span>
+                                                <input id="mobileNumber" type="text" class="form-control" placeholder="XXXXXXXXX" aria-label="mobileNumber" aria-describedby="mobile-code">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="courseNumber">Курсов номер</label>
+                                            <input type="text" class="form-control" id="courseNumber" placeholder="Курсов номер">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Запази</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

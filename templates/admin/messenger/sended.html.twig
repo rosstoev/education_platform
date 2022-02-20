@@ -1,0 +1,78 @@
+{% if teacher is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/teacher/base_layout.html.twig',
+        'path' : 'teacher',
+        'border' : 'border-primary'
+    } %}
+{% elseif student is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/student/base_layout.html.twig',
+        'path' : 'student',
+        'border' : 'border-secondary'
+    } %}
+{% endif %}
+
+{% extends pageComponents.layout %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Изпратени съобщения</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{ path(pageComponents.path~'_messenger_read', {'message' : 1}) }}">
+                                        <div class="card bg-light my-3 p-2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row justify-content-between">
+                                                        <div class="col-3">От: John Doe</div>
+                                                        <div class="col-auto">01.01.2001 14:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p>Съобщение: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac rutrum nulla. Duis ac urna scelerisque, pretium urna ac, maximus quam...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ path(pageComponents.path~'_messenger_read', {'message' : 1}) }}">
+                                        <div class="card bg-light my-3 p-2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="row justify-content-between">
+                                                        <div class="col-3">От: John Doe</div>
+                                                        <div class="col-auto">01.01.2001 14:00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p>Съобщение: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac rutrum nulla. Duis ac urna scelerisque, pretium urna ac, maximus quam...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block title %}Ученически админ панел{% endblock %}
+{% block body %}
+    <div class="wrapper">
+        {% include "admin/components/student/top.navigation.html.twig" %}
+        {% include "admin/components/student/side_navigation.html.twig" %}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock %}

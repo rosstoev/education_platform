@@ -1,0 +1,72 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Дисциплина Lorem Ipsum</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Дисциплина Lorem Ipsum</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vehicula ligula
+                                        neque, eu dictum nibh luctus sed. Proin ullamcorper, metus ut ornare malesuada,
+                                        erat est porttitor erat, ut ultricies justo dolor sed est. Donec luctus interdum
+                                        purus ut sollicitudin. Vestibulum at libero mollis lacus vehicula suscipit.
+                                        Etiam eu tristique lorem. Donec turpis mi, tristique ut aliquet ut, viverra
+                                        convallis arcu.
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <h6>Групи:</h6>
+                                    <ol class="list-group list-group-numbered">
+                                        <li class="list-group-item"><a href="#">A list item</a></li>
+                                        <li class="list-group-item"><a href="#">A list item</a></li>
+                                        <li class="list-group-item"><a href="#">A list item</a></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <a href="{{ path('teacher_discipline_edit', {'discipline' : 1}) }}" class=" btn btn-primary">Редактирай</a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ path('teacher_discipline_delete', {'discipline' : 1}) }}" class=" btn btn-danger">Изтрий</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}

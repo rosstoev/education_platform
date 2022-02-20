@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        {% include "components/page-title.html.twig" with {'title': 'Влез като преподавател'} %}
+        <section class="pt-4">
+            <form action="">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-3">
+                        <div class="form-floating my-3">
+                            <input type="email" class="form-control" id="email" placeholder="Имейл">
+                            <label for="email">Имейл</label>
+                        </div>
+                        <div class="form-floating my-3">
+                            <input type="password" class="form-control" id="password" placeholder="Парола">
+                            <label for="password">Парола</label>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-primary">Вход</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}

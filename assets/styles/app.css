@@ -1,1 +1,74 @@
 @import "vendor/index.css";
+@import "components/admin.css";
+
+:root {
+    --main-color: #5C81B9;
+    --main-student-color: #C9E265;
+}
+.logo{
+    font-size: 2.4rem;
+}
+
+#public-nav{
+    background-color: var(--main-color);
+    font-size: 1.2rem;
+}
+.nav-color-teacher{
+    background-color: var(--main-color);
+}
+
+.nav-color-student {
+    background-color: var(--main-student-color);
+}
+
+.big-title {
+    font-size: 3.5rem;
+}
+.big-button{
+    font-size: 3rem;
+}
+.btn-primary{
+    color: #fff;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+.btn-secondary {
+    color: #000000;
+    background-color: var(--main-student-color);
+    border-color: var(--main-student-color);
+}
+
+.btn-secondary:hover{
+    color: white;
+    background-color: #9aac4f;
+    border-color: #9aac4f;
+}
+
+.active-blue{
+    background-color: var(--main-color)!important;
+}
+
+.active-green {
+    background-color: var(--main-student-color)!important;
+    color: #646464!important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #416396;
+    border-color: #416396;
+}
+
+.px-7-9 {
+    padding-right: 7.8rem;
+    padding-left: 7.9rem;
+}
+.select2-container--default .select2-selection--single {
+    height: calc(2.25rem + 2px);
+}
+.border-primary {
+    border-color: var(--main-color)!important;
+}
+.border-secondary {
+    border-color: var(--main-student-color)!important;
+}

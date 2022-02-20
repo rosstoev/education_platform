@@ -1,0 +1,66 @@
+{% if teacher is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/teacher/base_layout.html.twig',
+        'path' : 'teacher'
+    } %}
+{% elseif student is defined %}
+    {% set pageComponents = {
+        'layout' : 'admin/student/base_layout.html.twig',
+        'path' : 'student'
+    } %}
+{% endif %}
+
+{% extends pageComponents.layout %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Съобщение</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card bg-light my-3 p-2">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="col-3">От: John Doe</div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div>Изпратено на: 01.01.2001 14:00</div>
+                                            </div>
+                                            <div class="col-12">
+                                                <p>Съобщение: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                    Ut vehicula ligula neque, eu dictum nibh luctus sed. Proin
+                                                    ullamcorper, metus ut ornare malesuada, erat est porttitor erat, ut
+                                                    ultricies justo dolor sed est. Donec luctus interdum purus ut
+                                                    sollicitudin. Vestibulum at libero mollis lacus vehicula suscipit.
+                                                    Etiam eu tristique lorem. Donec turpis mi, tristique ut aliquet ut,
+                                                    viverra convallis arcu.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <a href="{{ path(pageComponents.path~"_messenger_send_new") }}" class="text-bold"><i
+                                        class="fas fa-comments"></i> Отговор</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

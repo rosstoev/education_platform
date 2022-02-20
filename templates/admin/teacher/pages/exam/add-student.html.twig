@@ -1,0 +1,77 @@
+{% extends "admin/teacher/base_layout.html.twig" %}
+
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Добавяне на ученик</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <form action="">
+                <div class="card-header">
+                    <h3 class="card-title">Добавяне на ученик</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-12 mb-2">
+                                        <div>Дисциплина: <a
+                                                    href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem
+                                                ipsum</a></div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div>Група: <a href="{{ path('teacher_group_show', {'group': 1}) }}">Група 1 |
+                                                2020-2021 г.</a></div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div>Дисциплина: <a
+                                                    href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem
+                                                ipsum</a></div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="form-group">
+                                            <label for="group">Група</label>
+                                            <select class="form-control my-select2-js" name="discipline" multiple="multiple">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option disabled="disabled">California (disabled)</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добави</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
