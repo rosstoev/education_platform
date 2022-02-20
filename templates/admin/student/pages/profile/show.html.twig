@@ -50,6 +50,14 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <a href="{{ path('student_messenger_send_new') }}" class="link-primary">Изпрати съобщение</a>
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        <a href="{{ path('student_profile_edit') }}" class=" btn btn-secondary">Редактирай</a>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ path('student_profile_delete') }}" class=" btn btn-danger">Изтрий</a>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /.card -->
