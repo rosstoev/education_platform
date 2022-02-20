@@ -153,7 +153,8 @@ class RegistrationType extends AbstractType
             'required' => false,
             'label' => 'Курсов номер',
             'row_attr' => [
-                'class' => 'form-floating mb-3'
+                'class' => 'form-floating mb-3 course-number-js',
+                'style' => 'display: none'
             ],
             'attr' => [
                 'placeholder' => 'Курсов номер'
