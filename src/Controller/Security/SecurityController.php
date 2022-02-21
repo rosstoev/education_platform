@@ -4,6 +4,7 @@
 namespace App\Controller\Security;
 
 
+use App\DTO\UserDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,9 @@ class SecurityController extends AbstractController
      */
     public function teacherLogin(): Response
     {
-        return $this->render("pages/security/login.html.twig");
+        return $this->render("pages/security/login.html.twig", [
+            'type' => UserDTO::TEACHER
+        ]);
     }
 
     /**
@@ -24,6 +27,8 @@ class SecurityController extends AbstractController
      */
     public function studentLogin(): Response
     {
-        return $this->render("pages/security/login.html.twig");
+        return $this->render("pages/security/login.html.twig", [
+            'type' => UserDTO::STUDENT
+        ]);
     }
 }

@@ -1,9 +1,17 @@
 {% extends "base.html.twig" %}
-
+{% set userType = {1 : 'преподавател', 2 : 'ученик'} %}
 {% block content %}
     <div class="container">
-        {% include "components/page-title.html.twig" with {'title': 'Влез като преподавател'} %}
-        <section class="pt-4">
+        {% include "components/page-title.html.twig" with {'title': 'Влез като '~userType[type]} %}
+        {% for message in app.flashes('registerSuccess') %}
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <div class="alert alert-success">{{ message }}</div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <section >
             <form action="">
                 <div class="row justify-content-md-center">
                     <div class="col-md-3">
