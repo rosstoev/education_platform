@@ -5,6 +5,8 @@ namespace App\Controller;
 
 
 use App\Form\RegistrationType;
+use App\Handler\UserHandler;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    public const SUCCESS_REGISTRATION_PATH = [
+        1 => 'teacher_login',
+        2 => 'student_login'
+    ];
+
     /**
      * @Route ("/", name="home_page")
      */
@@ -23,13 +30,19 @@ class HomeController extends AbstractController
     /**
      * @Route ("/register", name="register")
      */
-    public function register(Request $request): Response
+    public function register(Request $request, UserHandler $userHandler, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(RegistrationType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            $userHandler->register($user);
+            $em->flush();
+
+            $this->addFlash('registerSuccess', 'Регистрацията е успешна.');
+
+            return $this->redirectToRoute(self::SUCCESS_REGISTRATION_PATH[$user->getType()]);
         }
 
 

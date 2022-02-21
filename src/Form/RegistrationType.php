@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationType extends AbstractType
@@ -58,6 +60,10 @@ class RegistrationType extends AbstractType
             'constraints' => [
                 new NotBlank([
                     'groups' => [ValidationGroup::GROUP_DEFAULT]
+                ]),
+                new Email([
+                    'groups' => [ValidationGroup::GROUP_DEFAULT],
+                    'mode' => 'html5'
                 ])
             ]
 
@@ -88,6 +94,10 @@ class RegistrationType extends AbstractType
             'constraints' => [
                 new NotBlank([
                     'groups' => [ValidationGroup::GROUP_DEFAULT]
+                ]),
+                new Length([
+                    'min' => 6,
+                    'groups' => [ValidationGroup::GROUP_DEFAULT]
                 ])
             ]
         ]);
@@ -98,7 +108,14 @@ class RegistrationType extends AbstractType
             'row_attr' => [
                 'class' => 'input-group mb-3'
             ],
-            'attr' => ['placeholder' => 'XXXXXXXXX']
+            'attr' => ['placeholder' => 'XXXXXXXXX'],
+            'constraints' => [
+                new Length([
+                    'groups' => [ValidationGroup::GROUP_DEFAULT],
+                    'max' => 9,
+                    'min' => 9,
+                ])
+            ]
         ]);
 
         $builder->add('firstName', TextType::class, [
@@ -113,7 +130,7 @@ class RegistrationType extends AbstractType
             'constraints' => [
                 new NotBlank([
                     'groups' => [ValidationGroup::GROUP_DEFAULT]
-                ])
+                ]),
             ]
         ]);
 
