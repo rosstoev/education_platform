@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
-use App\Form\RegistrationType;
+use App\Form\Security\RegistrationType;
 use App\Handler\UserHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

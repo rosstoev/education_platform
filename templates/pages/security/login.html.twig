@@ -4,32 +4,33 @@
     <div class="container">
         {% include "components/page-title.html.twig" with {'title': 'Влез като '~userType[type]} %}
         {% for message in app.flashes('registerSuccess') %}
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <div class="alert alert-success">{{ message }}</div>
-            </div>
-        </div>
-        {% endfor %}
-
-        <section >
-            <form action="">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-3">
-                        <div class="form-floating my-3">
-                            <input type="email" class="form-control" id="email" placeholder="Имейл">
-                            <label for="email">Имейл</label>
-                        </div>
-                        <div class="form-floating my-3">
-                            <input type="password" class="form-control" id="password" placeholder="Парола">
-                            <label for="password">Парола</label>
-                        </div>
-                        <div class="col-3">
-                            <button type="submit" class="btn btn-primary">Вход</button>
-                        </div>
-                    </div>
-
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="alert alert-success">{{ message }}</div>
                 </div>
-            </form>
+            </div>
+        {% endfor %}
+        {% if error is defined and error is not null %}
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                </div>
+            </div>
+
+        {% endif %}
+        <section>
+            {{ form_start(form) }}
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.password) }}
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-primary">Вход</button>
+                    </div>
+                </div>
+
+            </div>
+            {{ form_end(form) }}
         </section>
     </div>
 {% endblock %}
