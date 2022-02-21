@@ -1,5 +1,8 @@
+import bgSelect2 from 'admin-lte/plugins/select2/js/i18n/bg';
 $(document).ready(function (){
-    $('.my-select2-js').select2();
+    $('.my-select2-js').select2({
+        language: bgSelect2
+    });
     $('.year-mask').inputmask('yyyy', { 'placeholder': 'yyyy' });
     //Date picker
     $('.datepicker-field').datepicker({

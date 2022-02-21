@@ -17,35 +17,17 @@
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form>
+                        {{ form_start(form) }}
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Име</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Име на дисциплината">
-                                </div>
-                                <div class="form-group">
-                                    <label>Описание</label>
-                                    <textarea class="form-control" rows="3" placeholder="Описание на дисциплината"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Групи</label>
-                                    <select class="form-control my-select2-js" name="group" multiple="multiple" data-placeholder="Избери..." style="width: 100%;">
-                                        <option>Alabama</option>
-                                        <option>Alaska</option>
-                                        <option disabled="disabled">California (disabled)</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                    </select>
-                                </div>
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.description) }}
+                                {{ form_row(form.studentGroups) }}
                             </div>
                             <!-- /.card-body -->
-
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Създай</button>
                             </div>
-                        </form>
+                            {{ form_end(form) }}
                     </div>
                 </div>
             </div>

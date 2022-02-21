@@ -54,6 +54,7 @@ class Discipline
     {
         $this->studentGroups = new ArrayCollection();
         $this->lectures = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
