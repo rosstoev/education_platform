@@ -5,6 +5,7 @@ namespace App\Security;
 
 
 use App\Form\Security\LoginType;
+use App\Repository\StudentRepository;
 use App\Repository\TeacherRepository;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,23 +22,23 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
-class TeacherAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
+class StudentAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
 
     private RouterInterface $router;
     private FormFactoryInterface $formFactory;
-    private TeacherRepository $teacherRepository;
+    private StudentRepository $studentRepo;
 
-    public function __construct(RouterInterface $router, FormFactoryInterface $formFactory, TeacherRepository $teacherRepository)
+    public function __construct(RouterInterface $router, FormFactoryInterface $formFactory, StudentRepository $studentRepo)
     {
         $this->router = $router;
         $this->formFactory = $formFactory;
-        $this->teacherRepository = $teacherRepository;
+        $this->studentRepo = $studentRepo;
     }
 
     public function supports(Request $request): ?bool
     {
-        return ($request->getPathInfo() === '/teacher/login' && $request->isMethod('POST'));
+        return ($request->getPathInfo() === '/student/login' && $request->isMethod('POST'));
     }
 
     public function authenticate(Request $request): Passport
@@ -46,11 +47,11 @@ class TeacherAuthenticator extends AbstractAuthenticator implements Authenticati
         $form->handleRequest($request);
         $credentials = $form->getData();
         $userBadge = new UserBadge($credentials['email'], function ($userIdentifier) {
-            $teacher = $this->teacherRepository->findOneBy(['email' => $userIdentifier]);
-            if (!$teacher) {
+            $student = $this->studentRepo->findOneBy(['email' => $userIdentifier]);
+            if (!$student) {
                 throw new UserNotFoundException();
             }
-            return $teacher;
+            return $student;
         });
         $passwordCredention = new PasswordCredentials($credentials['password']);
 
@@ -60,7 +61,7 @@ class TeacherAuthenticator extends AbstractAuthenticator implements Authenticati
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return new RedirectResponse(
-          $this->router->generate('teacher_dashboard')
+          $this->router->generate('student_dashboard')
         );
     }
 
@@ -69,14 +70,14 @@ class TeacherAuthenticator extends AbstractAuthenticator implements Authenticati
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
 
        return new RedirectResponse(
-           $this->router->generate('teacher_login')
+           $this->router->generate('student_login')
        );
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
         return new RedirectResponse(
-            $this->router->generate('teacher_dashboard')
+            $this->router->generate('student_login')
         );
     }
 }

@@ -30,6 +30,18 @@ security:
             logout:
                 path: /teacher/logout
                 target: /
+        student:
+            lazy: true
+            pattern: ^/student
+            provider: student_provider
+            entry_point: App\Security\StudentAuthenticator
+            form_login:
+                login_path: student_login
+                check_path: student_login
+            custom_authenticator: App\Security\StudentAuthenticator
+            logout:
+                path: /student/logout
+                target: /
         main:
             lazy: true
             provider: users_in_memory
@@ -44,7 +56,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/teacher/login, roles: PUBLIC_ACCESS}
+         - { path: ^/student/login, roles: PUBLIC_ACCESS}
          - { path: ^/teacher, roles: ROLE_USER }
+         - { path: ^/student, roles: ROLE_USER }
 
         # - { path: ^/profile, roles: ROLE_USER }
 

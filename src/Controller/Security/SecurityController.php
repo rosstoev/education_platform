@@ -20,6 +20,9 @@ class SecurityController extends AbstractController
      */
     public function teacherLogin(AuthenticationUtils $authenticationUtils): Response
     {
+        if (!empty($this->getUser())) {
+            return $this->redirectToRoute('teacher_dashboard');
+        }
         $form = $this->createForm(LoginType::class);
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -33,17 +36,33 @@ class SecurityController extends AbstractController
     /**
      * @Route ("/student/login", name="student_login")
      */
-    public function studentLogin(): Response
+    public function studentLogin(AuthenticationUtils $authenticationUtils): Response
     {
+        if (!empty($this->getUser())) {
+            return $this->redirectToRoute('student_dashboard');
+        }
+        $form = $this->createForm(LoginType::class);
+        $error = $authenticationUtils->getLastAuthenticationError();
+
         return $this->render("pages/security/login.html.twig", [
-            'type' => UserDTO::STUDENT
+            'type' => UserDTO::STUDENT,
+            'form' => $form->createView(),
+            'error' => $error
         ]);
     }
 
     /**
      * @Route("/teacher/logout", name="teacher_logout")
      */
-    public function logout()
+    public function teacherLogout()
+    {
+        throw new \Exception('logout() should never be reached');
+    }
+
+    /**
+     * @Route("/student/logout", name="student_logout")
+     */
+    public function studentLogout()
     {
         throw new \Exception('logout() should never be reached');
     }
