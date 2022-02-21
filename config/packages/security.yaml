@@ -6,10 +6,42 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
+        teacher_provider:
+            entity:
+                class: App\Entity\Teacher
+                property: email
+        student_provider:
+            entity:
+                class: App\Entity\Student
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        teacher:
+            lazy: true
+            pattern: ^/teacher
+            provider: teacher_provider
+            entry_point: App\Security\TeacherAuthenticator
+            form_login:
+                login_path: teacher_login
+                check_path: teacher_login
+            custom_authenticator: App\Security\TeacherAuthenticator
+            logout:
+                path: /teacher/logout
+                target: /
+        student:
+            lazy: true
+            pattern: ^/student
+            provider: student_provider
+            entry_point: App\Security\StudentAuthenticator
+            form_login:
+                login_path: student_login
+                check_path: student_login
+            custom_authenticator: App\Security\StudentAuthenticator
+            logout:
+                path: /student/logout
+                target: /
         main:
             lazy: true
             provider: users_in_memory
@@ -23,7 +55,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/teacher/login, roles: PUBLIC_ACCESS}
+         - { path: ^/student/login, roles: PUBLIC_ACCESS}
+         - { path: ^/teacher, roles: ROLE_USER }
+         - { path: ^/student, roles: ROLE_USER }
+
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
