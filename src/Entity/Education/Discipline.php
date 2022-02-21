@@ -36,7 +36,8 @@ class Discipline
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Group::class)
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="disciplines")
+     * @ORM\JoinTable(name="discipline_group")
      */
     private $studentGroups;
 

@@ -11,7 +11,7 @@
             {% for message in app.flashes('createDisciplineSuccess') %}
                 <div class="row mt-3">
                     <div class="col-auto">
-                        <div class="alert alert-success">Дисциплината беше създадена успешно.</div>
+                        <div class="alert alert-success">{{ message }}</div>
                     </div>
                 </div>
             {% endfor %}
@@ -45,11 +45,11 @@
                                 </div>
                                 <div class="col-12">
                                     <h6>Групи:</h6>
-                                    <ol class="list-group list-group-numbered">
+                                    <ul class="list-group">
                                         {% for group in discipline.studentGroups %}
-                                            <li class="list-group-item"><a href="{{ path('teacher_group_show', {'group' : group.id}) }}">{{ group.course }} | {{ group.year|date('Y - Y+1') }}</a></li>
+                                            <li class="list-group-item"><a href="{{ path('teacher_group_show', {'group' : group.id}) }}">{{ group.course }} | {{ group.formatStudyYear }}</a></li>
                                         {% endfor %}
-                                    </ol>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

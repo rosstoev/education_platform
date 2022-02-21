@@ -47,9 +47,16 @@ class Group
      */
     private $students;
 
+    /**
+     * @ORM\ManyToMany (targetEntity="App\Entity\Education\Discipline", mappedBy="studentGroups")
+     */
+    private $disciplines;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
+        $this->disciplines = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -128,4 +135,20 @@ class Group
 
         return $this;
     }
+
+    public function formatStudyYear(): string
+    {
+        $year = (int)$this->getYear()->format('Y');
+        return \sprintf('%d - %d', $year, ($year + 1));
+    }
+
+    /**
+     * @return Collection|\App\Entity\Education\Discipline[]
+     */
+    public function getDisciplines(): Collection
+    {
+        return $this->disciplines;
+    }
+
+
 }

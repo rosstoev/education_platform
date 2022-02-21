@@ -54,7 +54,7 @@ class DisciplineType extends AbstractType
                     ->setParameter('teacher', $teacher);
             },
             'choice_label' => function (Group $group) {
-                return $group->getCourse();
+                return $group->getCourse() . ' | ' . $group->formatStudyYear();
             },
             'multiple' => true,
             'attr' => ['class' => 'my-select2-js', 'data-placeholder' => 'Избери...'],
