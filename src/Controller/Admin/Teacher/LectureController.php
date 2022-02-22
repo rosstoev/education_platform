@@ -64,9 +64,24 @@ class LectureController extends AbstractController
     /**
      * @Route ("/{lecture}/edit", name="edit")
      */
-    public function edit(int $lecture): Response
+    public function edit(Request $request,Lecture $lecture, EntityManagerInterface $em): Response
     {
-        return $this->render("admin/teacher/pages/lecture/manage.html.twig");
+        $form = $this->createForm(LectureType::class, $lecture);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var \App\Entity\Education\Lecture $lecture */
+            $lecture = $form->getData();
+            $em->persist($lecture);
+            $em->flush();
+            $this->addFlash('createLectureSuccess', \sprintf('Занятието на тема "%s" е редактирано успешно', $lecture->getName()));
+            return $this->redirectToRoute('teacher_lecture_show', ['lecture' => $lecture->getId()]);
+
+        }
+
+        return $this->render("admin/teacher/pages/lecture/manage.html.twig", [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
