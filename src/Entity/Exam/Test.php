@@ -82,7 +82,6 @@ class Test
     {
         if (!$this->questions->contains($question)) {
             $this->questions[] = $question;
-            $question->setTest($this);
         }
 
         return $this;
@@ -90,12 +89,7 @@ class Test
 
     public function removeQuestion(Question $question): self
     {
-        if ($this->questions->removeElement($question)) {
-            // set the owning side to null (unless already changed)
-            if ($question->getTest() === $this) {
-                $question->setTest(null);
-            }
-        }
+        $this->questions->removeElement($question);
 
         return $this;
     }

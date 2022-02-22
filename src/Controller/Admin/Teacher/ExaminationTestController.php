@@ -4,7 +4,12 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Teacher;
 
 
+use App\Entity\Exam\Question\Choice;
+use App\Entity\Exam\Question\Question;
+use App\Entity\Exam\Test;
+use App\Form\Teacher\TestExam\TestExamType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,9 +29,24 @@ class ExaminationTestController extends AbstractController
     /**
      * @Route ("", name="new")
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return $this->render("admin/teacher/pages/examination-test/manage.html.twig");
+        $test = new Test();
+        $question = new Question();
+        $choice = new Choice();
+        $question->addChoice($choice);
+        $test->addQuestion($question);
+
+        $form = $this->createForm(TestExamType::class, $test);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
+        }
+
+        return $this->render("admin/teacher/pages/examination-test/manage.html.twig", [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
