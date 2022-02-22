@@ -9,7 +9,7 @@ use App\Entity\Education\Discipline;
 class GroupFilterDTO
 {
     private ?Discipline $discipline = null;
-    private ?\DateTimeInterface $year = null;
+    private ?string $year = null;
 
     /**
      * @return \App\Entity\Education\Discipline|null
@@ -28,17 +28,17 @@ class GroupFilterDTO
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return string|null
      */
-    public function getYear(): ?\DateTimeInterface
+    public function getYear(): ?string
     {
         return $this->year;
     }
 
     /**
-     * @param \DateTimeInterface|null $year
+     * @param string|null $year
      */
-    public function setYear(?\DateTimeInterface $year): void
+    public function setYear(?string $year): void
     {
         $this->year = $year;
     }

@@ -9,7 +9,6 @@ use App\Entity\Education\Group;
 use App\Entity\Teacher;
 use App\Form\Teacher\Group\FilterType;
 use App\Form\Teacher\Group\GroupType;
-use App\Repository\Education\DisciplineRepository;
 use App\Repository\Education\GroupRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +28,14 @@ class GroupController extends AbstractController
     {
         /** @var Teacher $teacher */
         $teacher = $this->getUser();
-        $groups = $groupRepo->findBy(['teacher' => $teacher]);
+//        $groups = $groupRepo->findBy(['teacher' => $teacher]);
 
         $form = $this->createForm(FilterType::class);
         $form->handleRequest($request);
+        /** @var \App\DTO\GroupFilterDTO $formData */
         $formData = $form->getData();
+
+        $groups = $groupRepo->findByCriteria($teacher, $formData);
 
         return $this->render("admin/teacher/pages/group/list.html.twig", [
             'form' => $form->createView(),
