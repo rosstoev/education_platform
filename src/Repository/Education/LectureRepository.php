@@ -2,7 +2,9 @@
 
 namespace App\Repository\Education;
 
+use App\DTO\LectureFilterDTO;
 use App\Entity\Education\Lecture;
+use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +21,29 @@ class LectureRepository extends ServiceEntityRepository
         parent::__construct($registry, Lecture::class);
     }
 
-    // /**
-    //  * @return Lecture[] Returns an array of Lecture objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByTeacher(Teacher $teacher, ?LectureFilterDTO $filter = null)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('lecture')
+            ->leftJoin('lecture.discipline', 'discipline')
+            ->where('discipline.teacher = :teacher')
+            ->setParameter('teacher', $teacher);
+        if (!empty($filter)) {
+            if (!empty($filter->getDiscipline())) {
+                $qb->andWhere('discipline = :discipline')
+                ->setParameter('discipline', $filter->getDiscipline());
+            }
 
-    /*
-    public function findOneBySomeField($value): ?Lecture
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            if (!empty($filter->getFrom())) {
+                $qb->andWhere('lecture.startDate >= :fromDate')
+                ->setParameter('fromDate', $filter->getFrom()->format('Y-m-d'));
+            }
+
+            if (!empty($filter->getTo())) {
+                $qb->andWhere('lecture.startDate <= :toDate')
+                    ->setParameter('toDate', $filter->getTo()->format('Y-m-d 23:59:59'));
+            }
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }
