@@ -2,7 +2,10 @@
 
 namespace App\Repository\Exam;
 
+use App\DTO\Exam\TeacherExamFilterDTO;
+use App\DTO\LectureFilterDTO;
 use App\Entity\Exam\TeacherExam;
+use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +22,29 @@ class TeacherExamRepository extends ServiceEntityRepository
         parent::__construct($registry, TeacherExam::class);
     }
 
-    // /**
-    //  * @return TeacherExam[] Returns an array of TeacherExam objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByTeacher(Teacher $teacher, ?TeacherExamFilterDTO $filter = null)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('teacher_exam')
+//            ->leftJoin('teacher_exam.discipline', 'discipline')
+            ->where('teacher_exam.creator = :teacher')
+            ->setParameter('teacher', $teacher);
+        if (!empty($filter)) {
+            if (!empty($filter->getDiscipline())) {
+                $qb->andWhere('teacher_exam.discipline = :discipline')
+                    ->setParameter('discipline', $filter->getDiscipline());
+            }
 
-    /*
-    public function findOneBySomeField($value): ?TeacherExam
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            if (!empty($filter->getFrom())) {
+                $qb->andWhere('teacher_exam.startedAt >= :fromDate')
+                    ->setParameter('fromDate', $filter->getFrom()->format('Y-m-d 00:00:00'));
+            }
+
+            if (!empty($filter->getTo())) {
+                $qb->andWhere('teacher_exam.startedAt <= :toDate')
+                    ->setParameter('toDate', $filter->getTo()->format('Y-m-d 23:59:59'));
+            }
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

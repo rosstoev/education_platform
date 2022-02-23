@@ -4,7 +4,19 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Teacher;
 
 
+use App\Entity\Education\Group;
+use App\Entity\Exam\StudentExam;
+use App\Entity\Exam\TeacherExam;
+use App\Entity\Teacher;
+use App\Form\Teacher\Exam\ExamType;
+use App\Form\Teacher\Exam\FilterExamType;
+use App\Form\Teacher\Exam\GroupExamType;
+use App\Form\Teacher\Exam\StudentExamType;
+use App\Handler\StudentExamHandler;
+use App\Repository\Exam\TeacherExamRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,35 +28,95 @@ class ExamController extends AbstractController
     /**
      * @Route ("/list", name="list")
      */
-    public function list(): Response
+    public function list(Request $request,TeacherExamRepository $teacherRepo): Response
     {
-        return $this->render('admin/teacher/pages/exam/list.html.twig');
+        $form = $this->createForm(FilterExamType::class);
+        $form->handleRequest($request);
+        $filter = $form->getData();
+
+        $exams = $teacherRepo->findByTeacher($this->getUser(), $filter);
+        return $this->render('admin/teacher/pages/exam/list.html.twig', [
+            'exams' => $exams,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
      * @Route ("", name="new")
      */
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('admin/teacher/pages/exam/manage.html.twig');
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $form = $this->createForm(ExamType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var \App\Entity\Exam\TeacherExam $exam */
+            $exam = $form->getData();
+            $exam->setCreator($teacher);
+            $exam->createToken();
+            $exam->createEndAt();
+            $em->persist($exam);
+            $em->flush();
+
+            $this->addFlash('createExamSuccess', \sprintf('Изпит "%s" е създаден успешно', $exam->getToken()));
+            return $this->redirectToRoute('teacher_exam_show', ['exam' => $exam->getId()]);
+
+        }
+
+        return $this->render('admin/teacher/pages/exam/manage.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
      * @Route ("/{exam}", name="show")
      */
-    public function show(int $exam): Response
+    public function show(Request $request, TeacherExam $exam): Response
     {
+        $exam->createExecutionMinutes();
+        $form = $this->createForm(GroupExamType::class, null, ['discipline' => $exam->getDiscipline()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $group = $form->getData()->getStudentGroup();
+            return $this->redirectToRoute('teacher_exam_add_student', ['exam' => $exam->getId(), 'group' => $group->getId()]);
+        }
+
         return $this->render('admin/teacher/pages/exam/show.html.twig', [
-            'exam' => $exam
+            'exam' => $exam,
+            'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route ("/{exam}/edit", name="edit")
      */
-    public function edit(int $exam): Response
+    public function edit(Request $request,TeacherExam $exam, EntityManagerInterface $em): Response
     {
-        return $this->render("admin/teacher/pages/exam/manage.html.twig");
+        $exam->createExecutionMinutes();
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $form = $this->createForm(ExamType::class, $exam);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var \App\Entity\Exam\TeacherExam $exam */
+            $exam = $form->getData();
+            $exam->setCreator($teacher);
+            $exam->createEndAt();
+            $em->persist($exam);
+            $em->flush();
+
+            $this->addFlash('createExamSuccess', \sprintf('Изпит "%s" е редактиран успешно', $exam->getToken()));
+            return $this->redirectToRoute('teacher_exam_show', ['exam' => $exam->getId()]);
+
+        }
+
+        return $this->render("admin/teacher/pages/exam/manage.html.twig", [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -56,12 +128,53 @@ class ExamController extends AbstractController
     }
 
     /**
-     * @Route ("/{exam}/add-student", name="add_student")
+     * @Route ("/{exam}/add-student/{group}", name="add_student")
      */
-    public function addStudent(int $exam): Response
+    public function addStudent(
+        Request $request,
+        TeacherExam $exam,
+        Group $group,
+        EntityManagerInterface $em,
+        StudentExamHandler $studentExamHandler
+    ): Response
     {
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $examDiscipline = $exam->getDiscipline();
+        $groupDisciplines = $group->getDisciplines();
+        if ($teacher !== $exam->getCreator() && $teacher !== $group->getTeacher()) {
+            $this->addFlash('examListWarning', 'Вие не сте създадел на този изпит или група.');
+            return $this->redirectToRoute('teacher_exam_list');
+        }
 
-        return $this->render('admin/teacher/pages/exam/add-student.html.twig');
+        if (!$groupDisciplines->contains($examDiscipline)) {
+            $this->addFlash('examListWarning', 'Избраната група не присъства в изпита.');
+            return $this->redirectToRoute('teacher_exam_list');
+        }
+
+        $form = $this->createForm(StudentExamType::class, null, ['group' => $group, 'exam' => $exam]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $students = $form->getData()->getStudents();
+            $em->beginTransaction();
+            try {
+                $studentExamHandler->create($students, $exam);
+                $em->flush();
+                $em->commit();
+                $this->addFlash('success', 'Участниците бяха добавени успешно.');
+                return $this->redirectToRoute('teacher_exam_show', ['exam' => $exam->getId()]);
+            } catch (\Exception $ex) {
+                $em->rollback();
+                $this->addFlash('error', 'Нещо се обърка, опитайте отново.');
+            }
+        }
+
+        return $this->render('admin/teacher/pages/exam/add-student.html.twig', [
+            'exam' => $exam,
+            'group' => $group,
+            'form' => $form->createView()
+        ]);
     }
 
     /**

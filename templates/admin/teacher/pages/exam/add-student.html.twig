@@ -8,6 +8,13 @@
                     <h1 class="m-0">Добавяне на ученик</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('error') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-danger">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -16,7 +23,7 @@
 
         <!-- Default box -->
         <div class="card">
-            <form action="">
+                {{ form_start(form) }}
                 <div class="card-header">
                     <h3 class="card-title">Добавяне на ученик</h3>
 
@@ -33,31 +40,14 @@
                                 <div class="row">
                                     <div class="col-12 mb-2">
                                         <div>Дисциплина: <a
-                                                    href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem
-                                                ipsum</a></div>
+                                                    href="{{ path('teacher_discipline_show', {'discipline': exam.discipline.id}) }}">{{ exam.discipline.name }}</a></div>
                                     </div>
                                     <div class="col-12 mb-2">
-                                        <div>Група: <a href="{{ path('teacher_group_show', {'group': 1}) }}">Група 1 |
-                                                2020-2021 г.</a></div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div>Дисциплина: <a
-                                                    href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem
-                                                ipsum</a></div>
+                                        <div>Група: <a href="{{ path('teacher_group_show', {'group': group.id}) }}">Група {{ group.course}} |
+                                            {{ group.formatStudyYear }} г.</a></div>
                                     </div>
                                     <div class="col-6 mb-2">
-                                        <div class="form-group">
-                                            <label for="group">Група</label>
-                                            <select class="form-control my-select2-js" name="discipline" multiple="multiple">
-                                                <option>Alabama</option>
-                                                <option>Alaska</option>
-                                                <option disabled="disabled">California (disabled)</option>
-                                                <option>Delaware</option>
-                                                <option>Tennessee</option>
-                                                <option>Texas</option>
-                                                <option>Washington</option>
-                                            </select>
-                                        </div>
+                                        {{ form_row(form.students) }}
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +58,7 @@
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Добави</button>
                 </div>
-            </form>
+            {{ form_end(form) }}
         </div>
         <!-- /.card -->
 

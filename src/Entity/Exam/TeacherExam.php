@@ -49,6 +49,8 @@ class TeacherExam
      */
     private $creator;
 
+    private ?int $executionTime = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,7 +61,7 @@ class TeacherExam
         return $this->startedAt;
     }
 
-    public function setStartedAt(\DateTimeInterface $startedAt): self
+    public function setStartedAt(?\DateTimeInterface $startedAt): self
     {
         $this->startedAt = $startedAt;
 
@@ -124,5 +126,42 @@ class TeacherExam
         $this->creator = $creator;
 
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getExecutionTime(): ?int
+    {
+        return $this->executionTime;
+    }
+
+    /**
+     * @param int|null $executionTime
+     */
+    public function setExecutionTime(?int $executionTime): void
+    {
+        $this->executionTime = $executionTime;
+    }
+
+    public function createToken(): void
+    {
+        $bytes = openssl_random_pseudo_bytes(16);
+        $token  = bin2hex($bytes);
+        $this->token = $token;
+    }
+
+    public function createEndAt()
+    {
+        $minutes = $this->executionTime;
+        $startedAt = new \DateTime($this->getStartedAt()->format('Y-m-d H:i:s'));
+        $endAt = $startedAt->modify('+' . $minutes . ' minutes');
+        $this->endAt = $endAt;
+    }
+
+    public function createExecutionMinutes()
+    {
+        $diff = $this->getStartedAt()->diff($this->getEndAt());
+        $this->executionTime = $diff->i;
     }
 }
