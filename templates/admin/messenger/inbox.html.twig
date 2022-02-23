@@ -22,6 +22,13 @@
                     <h1 class="m-0">Входящи съобщения</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('success') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-success">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
     <!-- Main content -->
@@ -33,40 +40,23 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="{{ path(pageComponents.path~'_messenger_read', {'message' : 1}) }}">
-                                        <div class="card bg-light my-3 p-2 border-4 {{ pageComponents.border }}">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-3">От: John Doe</div>
-                                                        <div class="col-auto">01.01.2001 14:00</div>
+                                    {% for message in messages %}
+                                        <a href="{{ path(pageComponents.path~'_messenger_read', {'message' : message.id}) }}">
+                                            <div class="card bg-light my-3 p-2 border-4 {% if message.isReaded == false %}{{ pageComponents.border }} {% endif %}">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="row justify-content-between">
+                                                            <div class="col-3">От: {{ message.sender.firstName }} {{ message.sender.lastName }}</div>
+                                                            <div class="col-auto">{{ message.createdAt|date('d.m.Y H:i') }}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p>Съобщение: {{ message.text|u.truncate(60, '...') }}</p>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
-                                                    <p>Съобщение: Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                        elit. Praesent ac rutrum nulla. Duis ac urna scelerisque,
-                                                        pretium urna ac, maximus quam...</p>
-                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                    <a href="">
-                                        <div class="card bg-light my-3 p-2">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-3">От: John Doe</div>
-                                                        <div class="col-auto">01.01.2001 14:00</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <p>Съобщение: Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                        elit. Praesent ac rutrum nulla. Duis ac urna scelerisque,
-                                                        pretium urna ac, maximus quam...</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

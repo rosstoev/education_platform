@@ -42,6 +42,12 @@ class Message
      */
     private $isReaded;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->isReaded = false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

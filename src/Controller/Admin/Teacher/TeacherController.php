@@ -29,7 +29,7 @@ class TeacherController extends AbstractController
         /** @var \App\Entity\Teacher $teacher */
         $teacher = $this->getUser();
         $events = $calendarHandler->getTeacherEvents($teacher);
-        dump($events);
+
         return $this->render('admin/teacher/pages/dashboard.html.twig', [
             'calendarEvents' => $events
         ]);
