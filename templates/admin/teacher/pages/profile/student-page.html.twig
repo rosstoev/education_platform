@@ -31,16 +31,16 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div> Имена: John Doe Doe</div>
+                                    <div> Имена: {{student.firstName}} {{ student.secondName }} {{ student.lastName }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> email: john_doe@example.com</div>
+                                    <div> email: {{ student.email }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> курсов номер: 22005010</div>
+                                    <div> курсов номер: {{ student.courseNumber }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> мобиле номер: +359 888888888</div>
+                                    <div> мобиле номер: +359 {{ student.mobileNumber }}</div>
                                 </div>
                             </div>
                         </div>

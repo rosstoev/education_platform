@@ -25,7 +25,6 @@ class TeacherExamRepository extends ServiceEntityRepository
     public function findByTeacher(Teacher $teacher, ?TeacherExamFilterDTO $filter = null)
     {
         $qb = $this->createQueryBuilder('teacher_exam')
-//            ->leftJoin('teacher_exam.discipline', 'discipline')
             ->where('teacher_exam.creator = :teacher')
             ->setParameter('teacher', $teacher);
         if (!empty($filter)) {

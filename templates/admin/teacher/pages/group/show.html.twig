@@ -48,7 +48,7 @@
                                     <ul class="list-group list-group-numbered">
                                         {% for student in group.students %}
                                             <li class="list-group-item"><a
-                                                        href="#">{{ student.firstName }} {{ student.lastName }}</a></li>
+                                                        href="{{ path('teacher_student_profile', {'student' : student.id}) }}">{{ student.firstName }} {{ student.lastName }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
