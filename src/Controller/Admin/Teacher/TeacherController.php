@@ -7,6 +7,7 @@ namespace App\Controller\Admin\Teacher;
 use App\DTO\UserDTO;
 use App\Entity\Student;
 use App\Form\ProfileType;
+use App\Handler\CalendarHandler;
 use App\Handler\UserHandler;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,9 +24,15 @@ class TeacherController extends AbstractController
     /**
      * @Route ("/dashboard", name="dashboard")
      */
-    public function dashboard(): Response
+    public function dashboard(CalendarHandler $calendarHandler): Response
     {
-        return $this->render('admin/teacher/pages/dashboard.html.twig');
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $events = $calendarHandler->getTeacherEvents($teacher);
+        dump($events);
+        return $this->render('admin/teacher/pages/dashboard.html.twig', [
+            'calendarEvents' => $events
+        ]);
     }
 
     /**
