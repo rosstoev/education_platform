@@ -2,6 +2,7 @@
 
 namespace App\Entity\Exam\Question;
 
+use App\Entity\Exam\Test;
 use App\Repository\Exam\Question\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,7 +29,7 @@ class Question
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=Choice::class, mappedBy="question")
+     * @ORM\OneToMany(targetEntity=Choice::class, mappedBy="question", cascade={"persist", "remove"})
      */
     private $choices;
 
@@ -46,6 +47,11 @@ class Question
      * @ORM\Column(type="integer")
      */
     private $points;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Exam\Test", inversedBy="questions")
+     */
+    private $examTest;
 
     public function __construct()
     {
@@ -77,10 +83,12 @@ class Question
         return $this->choices;
     }
 
-    public function addChoice(Choice $choice): self
+    public function addChoice(?Choice $choice): self
     {
-        if (!$this->choices->contains($choice)) {
+        if (!$this->choices->contains($choice) && !empty($choice)) {
             $this->choices[] = $choice;
+            $point = $this->getPoints() ?? 0;
+            $this->setPoints($point + $choice->getPoints());
             $choice->setQuestion($this);
         }
 
@@ -90,7 +98,6 @@ class Question
     public function removeChoice(Choice $choice): self
     {
         if ($this->choices->removeElement($choice)) {
-            // set the owning side to null (unless already changed)
             if ($choice->getQuestion() === $this) {
                 $choice->setQuestion(null);
             }
@@ -128,10 +135,33 @@ class Question
         return $this->points;
     }
 
-    public function setPoints(int $points): self
+    public function setPoints(?int $points): self
     {
         $this->points = $points;
 
         return $this;
+    }
+
+    public function getExamTest(): ?Test
+    {
+        return $this->examTest;
+    }
+
+    public function setExamTest(?Test $examTest): self
+    {
+        $this->examTest = $examTest;
+
+        return $this;
+    }
+
+    public function setChoicePoints(): void
+    {
+        if ($this->getType() == Question::TYPE_CHOICES) {
+            $points = 0;
+            foreach ($this->getChoices() as $choice) {
+                $points+= $choice->getPoints();
+            }
+            $this->setPoints($points);
+        }
     }
 }

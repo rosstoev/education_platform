@@ -1,13 +1,24 @@
 {% extends "admin/teacher/base_layout.html.twig" %}
+{% set choiceIsCorrectText = {
+    0: 'Грешен',
+    1: 'Верен'
+} %}
 
 {% block content %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Тест {{ test }}</h1>
+                    <h1 class="m-0">Тест "{{ test.title }}"</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('createTestSuccess') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-success">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -17,7 +28,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Тест {{ test }}</h3>
+                <h3 class="card-title">Тест "{{ test.title }}"</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -31,53 +42,47 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div> Създадена на: 01.01.2021 13:00</div>
+                                    <div> Създадена на: {{ test.createdAt|date('d.m.Y H:i') }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> Макс. брой точки</div>
+                                    <div> Макс. брой точки {{ test.maxPoints }}</div>
                                 </div>
                                 <div class="co-12 text-bold">
                                     Въпроси:
                                 </div>
-                                <div class="col-12 mb-2">
-                                    <div class="card bg-light my-3 p-2">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <span class="text-bold">Въпрос:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                Consectetur corporis deleniti doloremque dolores ea, enim est et,
-                                                excepturi magnam mollitia necessitatibus nostrum obcaecati odit quaerat
-                                                recusandae repellat repellendus vero voluptas.
-                                            </div>
-                                            <div class="col-12">
-                                                Минимална дължина на отговора: 100 думи
-                                            </div>
-                                            <div class="col-12">
-                                                <span class="text-bold">Макс. точки:</span> 10
+                                {% for question in test.questions %}
+                                    <div class="col-12 mb-2">
+                                        <div class="card bg-light my-3 p-2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span class="text-bold">Въпрос:</span> {{ question.text }}
+                                                </div>
+                                                {% if question.type == 'open' %}
+                                                    <div class="col-12">
+                                                        Минимална дължина на отговора: {{ question.textLength }} думи
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <span class="text-bold">Макс. точки:</span> {{ question.points }}
+                                                    </div>
+                                                {% endif %}
+                                                {% if question.type == 'choices' %}
+                                                    <div class="col-12 text-bold">Избори:</div>
+                                                    <div class="col-12">
+                                                        <ul>
+                                                            {% for choice in question.choices %}
+                                                                <li>{{ choice.possibility }} - {{ choiceIsCorrectText[choice.isCorrect] }} |
+                                                                    точки: {{ choice.points }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-12"><span
+                                                                class="text-bold">Макс. точки:</span> {{ question.points }}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12 mb-2">
-                                    <div class="card bg-light my-3 p-2">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <span class="text-bold">Въпрос:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                Consectetur corporis deleniti doloremque dolores ea, enim est et,
-                                                excepturi magnam mollitia necessitatibus nostrum obcaecati odit
-                                                quaerat recusandae repellat repellendus vero voluptas.
-                                            </div>
-                                            <div class="col-12 text-bold">Избори:</div>
-                                            <div class="col-12">
-                                                <ul>
-                                                    <li>dolor sit amet - Верен | точки: 3</li>
-                                                    <li>dolor sit amet - Грешен | точки: 0</li>
-                                                    <li>dolor sit amet - Грешен | точки: 0</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-12"><span class="text-bold">Макс. точки:</span> 3</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -87,10 +92,11 @@
             <div class="card-footer">
                 <div class="row justify-content-between">
                     <div class="col-3">
-                        <a href="{{ path('teacher_test_edit', {'test' : 1}) }}" class=" btn btn-primary">Редактирай</a>
+                        <a href="{{ path('teacher_test_edit', {'test' : test.id}) }}" class=" btn btn-primary">Редактирай</a>
                     </div>
                     <div class="col-auto">
-                        <a href="{{ path('teacher_test_delete', {'test' : 1}) }}" class=" btn btn-danger">Изтрий</a>
+                        <a href="{{ path('teacher_test_delete', {'test' : test.id}) }}"
+                           class=" btn btn-danger">Изтрий</a>
                     </div>
                 </div>
             </div>

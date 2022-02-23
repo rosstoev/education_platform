@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TestExamType extends AbstractType
 {
@@ -17,7 +18,8 @@ class TestExamType extends AbstractType
     {
         $builder->add('title', TextType::class, [
             'label' => 'Заглавие',
-            'attr' => ['placeholder' => 'Име на теста']
+            'attr' => ['placeholder' => 'Име на теста'],
+            'constraints' => new NotBlank()
         ]);
 
         $builder->add('questions', CollectionType::class, [

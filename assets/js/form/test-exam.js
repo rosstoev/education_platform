@@ -50,26 +50,38 @@ $(document).ready(function () {
         $(`#choice-card-${questionIndex} .choice-block`).last().remove();
     }
 
+    function removeQuestion() {
+        let questionCard = $('#question-block .question-card');
+        let lastQuestionIndex = questionCard.last().data('questionIndex');
+        if (lastQuestionIndex > 0) {
+            questionCard.last().remove();
+        }
+    }
+
     $('.question-type').each(function () {
         toggleQuestionType($(this));
     })
 
-    $(document).on('change', '.question-type', function (){
+    $(document).on('change', '.question-type', function () {
         toggleQuestionType($(this));
     });
 
-    $(document).on('click', '.button-choice-add', function (){
+    $(document).on('click', '.button-choice-add', function () {
         let questionIndex = $(this).data('questionIndex');
         addQuestionChoice(questionIndex);
     })
 
-    $(document).on('click', '.button-choice-remove', function (){
+    $(document).on('click', '.button-choice-remove', function () {
         let questionIndex = $(this).data('questionIndex');
         removeQuestionChoice(questionIndex);
     })
 
     $('.button-add-question').click(function () {
         addQuestion();
+    });
+
+    $('.button-remove-question').click(function () {
+        removeQuestion();
     });
 
 });
