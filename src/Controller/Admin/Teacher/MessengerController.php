@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Teacher;
 
 
 use App\Entity\Message;
+use App\Entity\User;
 use App\Form\MessengerType;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManager;
@@ -49,18 +50,23 @@ class MessengerController extends AbstractController
     }
 
     /**
-     * @Route ("/send", name="send_new")
+     * @Route ("/send/{receiver}", name="send_new", defaults={"receiver":null})
      */
-    public function sendNew(Request $request, EntityManagerInterface $em): Response
+    public function sendNew(Request $request, EntityManagerInterface $em, ?User $receiver): Response
     {
         /** @var \App\Entity\Teacher $teacher */
         $teacher = $this->getUser();
-        $form = $this->createForm(MessengerType::class);
+        if ($receiver == $teacher) {
+            return $this->redirectToRoute('teacher_messenger_send_new');
+        }
+
+        $form = $this->createForm(MessengerType::class, null, ['receiver' => $receiver]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var \App\Entity\Message $message */
             $message = $form->getData();
+            !empty($receiver) ? $message->setReceiver($receiver) : null;
             $message->setSender($teacher);
             $em->persist($message);
             $em->flush();
@@ -75,12 +81,17 @@ class MessengerController extends AbstractController
     }
 
     /**
-     * @Route ("/sended", name="sended")
+     * @Route ("/sent", name="sent")
      */
-    public function sended(): Response
+    public function sent(MessageRepository $messageRepo): Response
     {
-        return $this->render("admin/messenger/sended.html.twig", [
-            'teacher' => true
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $messages = $messageRepo->findBy(['sender' => $teacher]);
+
+        return $this->render("admin/messenger/sent.html.twig", [
+            'teacher' => true,
+            'messages' => $messages
         ]);
     }
 }

@@ -49,7 +49,7 @@ class MessengerController extends AbstractController
      */
     public function sended(): Response
     {
-        return $this->render("admin/messenger/sended.html.twig", [
+        return $this->render("sent.html.twig", [
             'student' => true
         ]);
     }

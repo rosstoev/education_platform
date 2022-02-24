@@ -49,7 +49,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <a href="{{ path('teacher_messenger_send_new') }}" class="link-primary">Изпрати съобщение</a>
+                <a href="{{ path('teacher_messenger_send_new', {'receiver' : student.id}) }}" class="link-primary">Изпрати съобщение</a>
             </div>
         </div>
         <!-- /.card -->

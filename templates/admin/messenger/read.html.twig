@@ -34,7 +34,10 @@
                                     <div class="card bg-light my-3 p-2">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="col-3">От: {{ message.sender.firstName }} {{ message.sender.lastName }}</div>
+                                                <div>От: {{ message.sender.firstName }} {{ message.sender.lastName }}</div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div>До: {{ message.receiver.firstName }} {{ message.receiver.lastName }}</div>
                                             </div>
                                             <div class="col-12">
                                                 <div>Изпратено на: {{ message.createdAt|date('d.m.Y H:i') }}</div>
@@ -51,8 +54,10 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <a href="{{ path(pageComponents.path~"_messenger_send_new") }}" class="text-bold"><i
+                            {% if app.user != message.sender %}
+                            <a href="{{ path(pageComponents.path~"_messenger_send_new", {'receiver' : message.sender.id}) }}" class="text-bold"><i
                                         class="fas fa-comments"></i> Отговор</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

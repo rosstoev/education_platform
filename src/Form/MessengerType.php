@@ -13,6 +13,7 @@ use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
@@ -34,23 +35,37 @@ class MessengerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->security->getUser();
-        $builder->add('receiver', EntityType::class, [
-            'class' => User::class,
-            'label' => 'До',
-            'query_builder' => function (UserRepository $userRepo) use ($user) {
-                return $userRepo->createQueryBuilder('u')
-                    ->where('u != :user')
-                    ->setParameter('user', $user);
-            },
-            'choice_label' => function (User $user) {
-                return $user->getFirstName() . ' ' . $user->getLastName() . ' | ' . $user->getEmail();
-            },
-            'attr' => ['class' => 'my-select2-js'],
-            'placeholder' => 'Избери...',
-            'constraints' => [
-                new NotBlank()
-            ]
-        ]);
+        /** @var User $receiver */
+        $receiver = $options['receiver'];
+
+        if (!empty($receiver)) {
+            $builder->add('receiver', TextType::class, [
+                'data' => $receiver->getFirstName() .  ' ' . $receiver->getLastName(),
+                'disabled' => true,
+                'label' => 'До',
+                'constraints' => [new NotBlank()]
+            ]);
+        } else {
+            $builder->add('receiver', EntityType::class, [
+                'class' => User::class,
+                'label' => 'До',
+                'query_builder' => function (UserRepository $userRepo) use ($user) {
+                    return $userRepo->createQueryBuilder('u')
+                        ->where('u != :user')
+                        ->setParameter('user', $user);
+                },
+                'choice_label' => function (User $user) {
+                    return $user->getFirstName() . ' ' . $user->getLastName() . ' | ' . $user->getEmail();
+                },
+                'attr' => ['class' => 'my-select2-js'],
+                'placeholder' => 'Избери...',
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ]);
+        }
+
+
 
         $builder->add('text', TextareaType::class, [
             'label' => 'Съобщение',
