@@ -13,6 +13,7 @@ use App\Form\Teacher\Exam\FilterExamType;
 use App\Form\Teacher\Exam\GroupExamType;
 use App\Form\Teacher\Exam\StudentExamType;
 use App\Handler\StudentExamHandler;
+use App\Repository\Exam\StudentExamRepository;
 use App\Repository\Exam\TeacherExamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -180,17 +181,23 @@ class ExamController extends AbstractController
     /**
      * @Route ("/{exam}/finished/list", name="finished_exam_list")
      */
-    public function finishedExamList(int $exam): Response
+    public function finishedExamList(TeacherExam $exam, StudentExamRepository $studentExamRepo): Response
     {
-        return $this->render("admin/teacher/pages/exam/finished/list.html.twig");
+        $studentExams = $studentExamRepo->findBy(['teacherExam' => $exam]);
+
+        return $this->render("admin/teacher/pages/exam/finished/list.html.twig", [
+            'studentExams' => $studentExams
+        ]);
     }
 
     /**
      * @Route ("/{exam}/finished/detail/{studentExam}", name="finished_exam_detail")
      */
-    public function finishedExamDetail(int $exam, int $studentExam): Response
+    public function finishedExamDetail(TeacherExam $exam, StudentExam $studentExam): Response
     {
-        return $this->render("admin/teacher/pages/exam/finished/show.html.twig");
+        return $this->render("admin/teacher/pages/exam/finished/show.html.twig", [
+            'studentExam' => $studentExam
+        ]);
     }
 
     /**

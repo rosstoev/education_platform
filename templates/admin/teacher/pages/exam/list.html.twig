@@ -77,7 +77,7 @@
                                             {{ exam.startedAt|date('d.m.Y H:i') }}
                                         </td>
                                         <td>
-                                            <a href="{{ path('teacher_exam_finished_exam_list', {'exam' : 1}) }}">Виж</a>
+                                            <a href="{{ path('teacher_exam_finished_exam_list', {'exam' : exam.id}) }}">Виж</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
