@@ -2,7 +2,9 @@
 
 namespace App\Repository\Education;
 
+use App\DTO\GroupFilterDTO;
 use App\Entity\Education\Group;
+use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +21,26 @@ class GroupRepository extends ServiceEntityRepository
         parent::__construct($registry, Group::class);
     }
 
-    // /**
-    //  * @return Group[] Returns an array of Group objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCriteria(Teacher $teacher, ?GroupFilterDTO $filterDTO)
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('g')
+            ->where('g.teacher = :teacher')
+            ->setParameter('teacher', $teacher);
+        if (!empty($filterDTO)) {
+            if (!empty($filterDTO->getDiscipline())) {
+                $qb->leftJoin('g.disciplines', 'discipline')
+                ->orWhere('discipline = :discipline')
+                ->setParameter('discipline', $filterDTO->getDiscipline());
+            }
 
-    /*
-    public function findOneBySomeField($value): ?Group
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            if (!empty($filterDTO->getYear())) {
+                $dateInit = new \DateTime();
+                $year = date_create($dateInit->format($filterDTO->getYear() . '-m-d'));
+                $qb->orWhere('g.year = :year')
+                ->setParameter('year', $year);
+            }
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

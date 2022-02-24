@@ -4,7 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin\Teacher;
 
+use App\DTO\UserDTO;
+use App\Entity\Student;
+use App\Form\ProfileType;
+use App\Handler\CalendarHandler;
+use App\Handler\UserHandler;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,9 +24,15 @@ class TeacherController extends AbstractController
     /**
      * @Route ("/dashboard", name="dashboard")
      */
-    public function dashboard(): Response
+    public function dashboard(CalendarHandler $calendarHandler): Response
     {
-        return $this->render('admin/teacher/pages/dashboard.html.twig');
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $events = $calendarHandler->getTeacherEvents($teacher);
+
+        return $this->render('admin/teacher/pages/dashboard.html.twig', [
+            'calendarEvents' => $events
+        ]);
     }
 
     /**
@@ -26,30 +40,59 @@ class TeacherController extends AbstractController
      */
     public function profile(): Response
     {
-        return $this->render("admin/teacher/pages/profile/show.html.twig");
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+
+        return $this->render("admin/teacher/pages/profile/show.html.twig", [
+            'teacher' => $teacher
+        ]);
     }
 
     /**
      * @Route ("/profile/edit", name="profile_edit")
      */
-    public function editProfile(): Response
+    public function editProfile(Request $request, UserHandler $userHandler, EntityManagerInterface $em): Response
     {
-        return $this->render("admin/teacher/pages/profile/manage.html.twig");
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $userDTO = $userHandler->createDTO($teacher);
+
+        $form = $this->createForm(ProfileType::class, $userDTO, ['userType' => UserDTO::TEACHER]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userDTO = $form->getData();
+            $userHandler->update($teacher, $userDTO);
+            $em->flush();
+            $this->addFlash('success', 'Информацията е обновена.');
+            return $this->redirectToRoute('teacher_profile');
+        }
+
+        return $this->render("admin/teacher/pages/profile/manage.html.twig", [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
      * @Route ("/profile/delete", name="profile_delete")
      */
-    public function deleteProfile()
+    public function deleteProfile(EntityManagerInterface $em): Response
     {
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
+        $em->remove($teacher);
+        $em->flush();
 
+        return $this->redirectToRoute('teacher_logout');
     }
 
     /**
      * @Route ("/student/{student}", name="student_profile")
      */
-    public function student(int $student): Response
+    public function student(Student $student): Response
     {
-        return $this->render("admin/teacher/pages/profile/student-page.html.twig");
+        return $this->render("admin/teacher/pages/profile/student-page.html.twig", [
+            'student' => $student
+        ]);
     }
 }

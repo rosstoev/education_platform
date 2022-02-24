@@ -29,7 +29,7 @@
                     <a href="{{ path("teacher_profile") }}" class="nav-link {% if activeLinkProfile is defined %}active-blue{% endif %}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            John Doe
+                            {{ app.user.firstName }} {{ app.user.lastName }}
                         </p>
                     </a>
                 </li>
@@ -101,7 +101,7 @@
                         <p>
                             Съобщения
                             <i class="right fas fa-angle-left"></i>
-                            <span class="badge badge-info right">2</span>
+                            <span id="unread-messages-badge" class="badge badge-info right">0</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -120,8 +120,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('teacher_messenger_sended') }}"
-                               class="nav-link {% if "teacher_messenger_sended" in pathName %}active{% endif %}">
+                            <a href="{{ path('teacher_messenger_sent') }}"
+                               class="nav-link {% if "teacher_messenger_sent" in pathName %}active{% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Изпратени</p>
                             </a>

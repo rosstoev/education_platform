@@ -34,19 +34,18 @@
                                     <div class="card bg-light my-3 p-2">
                                         <div class="row">
                                             <div class="col-12">
-                                                <div class="col-3">От: John Doe</div>
+                                                <div>От: {{ message.sender.firstName }} {{ message.sender.lastName }}</div>
                                             </div>
                                             <div class="col-12">
-                                                <div>Изпратено на: 01.01.2001 14:00</div>
+                                                <div>До: {{ message.receiver.firstName }} {{ message.receiver.lastName }}</div>
                                             </div>
                                             <div class="col-12">
-                                                <p>Съобщение: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut vehicula ligula neque, eu dictum nibh luctus sed. Proin
-                                                    ullamcorper, metus ut ornare malesuada, erat est porttitor erat, ut
-                                                    ultricies justo dolor sed est. Donec luctus interdum purus ut
-                                                    sollicitudin. Vestibulum at libero mollis lacus vehicula suscipit.
-                                                    Etiam eu tristique lorem. Donec turpis mi, tristique ut aliquet ut,
-                                                    viverra convallis arcu.</p>
+                                                <div>Изпратено на: {{ message.createdAt|date('d.m.Y H:i') }}</div>
+                                            </div>
+                                            <div class="col-12">
+                                                <p>Съобщение:<br>
+                                                    {{ message.text|nl2br|raw }}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -55,8 +54,10 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <a href="{{ path(pageComponents.path~"_messenger_send_new") }}" class="text-bold"><i
+                            {% if app.user != message.sender %}
+                            <a href="{{ path(pageComponents.path~"_messenger_send_new", {'receiver' : message.sender.id}) }}" class="text-bold"><i
                                         class="fas fa-comments"></i> Отговор</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

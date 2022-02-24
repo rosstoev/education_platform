@@ -22,7 +22,7 @@ class StudentExam
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $finishedAt;
 
@@ -61,7 +61,7 @@ class StudentExam
         return $this->finishedAt;
     }
 
-    public function setFinishedAt(\DateTimeInterface $finishedAt): self
+    public function setFinishedAt(?\DateTimeInterface $finishedAt): self
     {
         $this->finishedAt = $finishedAt;
 

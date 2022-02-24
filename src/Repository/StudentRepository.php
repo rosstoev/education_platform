@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Education\Group;
+use App\Entity\Exam\TeacherExam;
 use App\Entity\Student;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +21,15 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
-    // /**
-    //  * @return Student[] Returns an array of Student objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findNotParticipateInExam(Group $group, TeacherExam $teacherExam)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('student')
+            ->leftJoin('student.myGroups', 'studentGroup')
+            ->leftJoin('student.studentExams', 'studentExam')
+            ->andWhere('studentGroup = :studentGroup')
+            ->andWhere('studentExam.teacherExam != :exam OR studentExam.teacherExam IS NULL')
+            ->setParameters(['studentGroup' => $group, 'exam' => $teacherExam]);
 
-    /*
-    public function findOneBySomeField($value): ?Student
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getQuery()->getResult();
     }
-    */
 }

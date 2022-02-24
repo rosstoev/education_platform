@@ -3,6 +3,7 @@
 namespace App\Entity\Exam;
 
 use App\Entity\Exam\Question\Question;
+use App\Entity\Teacher;
 use App\Repository\Exam\TestRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -32,13 +33,19 @@ class Test
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="test")
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="examTest", cascade={"persist", "remove"})
      */
     private $questions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Teacher::class)
+     */
+    private $author;
 
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -82,7 +89,7 @@ class Test
     {
         if (!$this->questions->contains($question)) {
             $this->questions[] = $question;
-            $question->setTest($this);
+            $question->setExamTest($this);
         }
 
         return $this;
@@ -90,13 +97,35 @@ class Test
 
     public function removeQuestion(Question $question): self
     {
+        $this->questions->removeElement($question);
+
         if ($this->questions->removeElement($question)) {
-            // set the owning side to null (unless already changed)
-            if ($question->getTest() === $this) {
-                $question->setTest(null);
+            if ($question->getExamTest() === $this) {
+                $question->setExamTest(null);
             }
         }
 
         return $this;
+    }
+
+    public function getAuthor(): ?Teacher
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Teacher $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getMaxPoints(): int
+    {
+        $result = 0;
+        foreach ($this->getQuestions() as $question) {
+            $result+= $question->getPoints();
+        }
+        return $result;
     }
 }

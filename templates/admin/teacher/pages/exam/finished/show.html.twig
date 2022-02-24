@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Изпит 1</h1>
+                    <h1 class="m-0">Изпит</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -17,7 +17,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Изпит 1</h3>
+                <h3 class="card-title">Изпит {{ studentExam.teacherExam.token }}</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -31,22 +31,28 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div>На: <a href="">John Doe</a></div>
+                                    <div>На:
+                                        <a href="{{ path('teacher_student_profile', {'student' : studentExam.author.id}) }}">{{ studentExam.author.firstName }} {{ studentExam.author.lastName }}</a>
+                                    </div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Дисциплина: <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem ipsum</a></div>
+                                    <div>Дисциплина: <a
+                                                href="{{ path('teacher_discipline_show', {'discipline': studentExam.teacherExam.discipline.id}) }}">{{ studentExam.teacherExam.discipline.name }}</a>
+                                    </div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Дата за провеждане: 01.01.2021 13:00</div>
+                                    <div>Дата за
+                                        провеждане: {{ studentExam.teacherExam.startedAt|date('d.m.Y H:i') }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Завършен на: 01.01.2021 13:00</div>
+                                    <div>Завършен
+                                        на: {% if studentExam.finishedAt != null %}{{ studentExam.finishedAt|date('d.m.Y H:i') }}{% endif %}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Токън: jXn2r5u7x!A%D*G-KaPdSgVkYp3s6v9y</div>
+                                    <div>Токън: {{ studentExam.teacherExam.token }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Оценка: </div>
+                                    <div>Оценка: {{ studentExam.evaluation }}</div>
                                 </div>
 
                             </div>
@@ -58,7 +64,10 @@
             <div class="card-footer">
                 <div class="row justify-content-between">
                     <div class="col-3">
-                        <a href="{{ path('teacher_exam_finished_exam_check', {'exam' : 1, 'studentExam' : 1}) }}" class=" btn btn-primary">Провери</a>
+                        {% if studentExam.finishedAt != null %}
+                            <a href="{{ path('teacher_exam_finished_exam_check', {'exam' : 1, 'studentExam' : 1}) }}"
+                               class=" btn btn-primary">Провери</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

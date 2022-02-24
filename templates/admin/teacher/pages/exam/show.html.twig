@@ -8,6 +8,20 @@
                     <h1 class="m-0">Изпит</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('createExamSuccess') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-success">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-success">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -31,36 +45,29 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div>Дата на провеждане: 01.01.2021 15:00</div>
+                                    <div>Дата на провеждане: {{ exam.startedAt|date('d.m.Y H:i') }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Време за провеждане: 40 минути</div>
+                                    <div>Време за провеждане: {{ exam.executionTime }} минути</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Дисциплина: <a href="{{ path('teacher_discipline_show', {'discipline': 1}) }}">Lorem ipsum</a></div>
+                                    <div>Дисциплина: <a
+                                                href="{{ path('teacher_discipline_show', {'discipline': exam.discipline.id}) }}">{{ exam.discipline.name }}</a>
+                                    </div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Токън: jXn2r5u7x!A%D*G-KaPdSgVkYp3s6v9y</div>
+                                    <div>Токън: {{ exam.token }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div>Тест: <a href="{{ path('teacher_test_show', {'test': 1})}}">Lorem ipsum</a></div>
+                                    <div>Тест: <a
+                                                href="{{ path('teacher_test_show', {'test': exam.test.id}) }}">{{ exam.test.title }}</a>
+                                    </div>
                                 </div>
                                 <div class="col-6 mb-2">
-                                    <form action="">
-                                        <div class="form-group">
-                                            <label for="group">Група</label>
-                                            <select class="form-control my-select2-js" name="discipline">
-                                                <option>Alabama</option>
-                                                <option>Alaska</option>
-                                                <option disabled="disabled">California (disabled)</option>
-                                                <option>Delaware</option>
-                                                <option>Tennessee</option>
-                                                <option>Texas</option>
-                                                <option>Washington</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Избери</button>
-                                    </form>
+                                    {{ form_start(form) }}
+                                    {{ form_row(form.studentGroup) }}
+                                    <button type="submit" class="btn btn-primary">Избери</button>
+                                    {{ form_end(form) }}
                                 </div>
                             </div>
                         </div>

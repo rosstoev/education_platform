@@ -7,5 +7,8 @@ $(document).ready(function (){
         "info": true,
         "autoWidth": false,
         "responsive": true,
+        'language' : {
+            'emptyTable' : 'Няма данни'
+        }
     });
 })

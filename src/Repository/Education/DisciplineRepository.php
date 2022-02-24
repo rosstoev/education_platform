@@ -3,6 +3,7 @@
 namespace App\Repository\Education;
 
 use App\Entity\Education\Discipline;
+use App\Entity\Education\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,14 @@ class DisciplineRepository extends ServiceEntityRepository
         parent::__construct($registry, Discipline::class);
     }
 
-    // /**
-    //  * @return Discipline[] Returns an array of Discipline objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByGroup(Group $group)
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('discipline')
+        ->leftJoin('discipline.studentGroups', 'student_group')
+        ->where('student_group = :group')
+        ->setParameter('group', $group)
+        ->getQuery();
 
-    /*
-    public function findOneBySomeField($value): ?Discipline
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $qb->getResult();
     }
-    */
 }

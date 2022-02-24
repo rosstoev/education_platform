@@ -37,6 +37,7 @@ class TeacherAuthenticator extends AbstractAuthenticator implements Authenticati
 
     public function supports(Request $request): ?bool
     {
+
         return ($request->getPathInfo() === '/teacher/login' && $request->isMethod('POST'));
     }
 
@@ -76,7 +77,7 @@ class TeacherAuthenticator extends AbstractAuthenticator implements Authenticati
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
         return new RedirectResponse(
-            $this->router->generate('teacher_dashboard')
+            $this->router->generate('teacher_login')
         );
     }
 }

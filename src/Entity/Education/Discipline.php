@@ -36,7 +36,8 @@ class Discipline
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Group::class)
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="disciplines")
+     * @ORM\JoinTable(name="discipline_group")
      */
     private $studentGroups;
 
@@ -54,6 +55,7 @@ class Discipline
     {
         $this->studentGroups = new ArrayCollection();
         $this->lectures = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

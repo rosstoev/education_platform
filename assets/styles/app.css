@@ -72,3 +72,6 @@
 .border-secondary {
     border-color: var(--main-student-color)!important;
 }
+legend{
+    font-weight: 700;
+}
