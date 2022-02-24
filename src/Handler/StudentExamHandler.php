@@ -35,4 +35,17 @@ class StudentExamHandler
         }
 
     }
+
+    public function validateForTaking(?StudentExam $studentExam):void
+    {
+        $now = new \DateTime();
+        if (empty($studentExam)) {
+            throw new \Exception('Този изпит не съществува.');
+        }
+
+        $startedDate = $studentExam->getTeacherExam()->getStartedAt()->modify('- 2 min');
+        if ($now < $startedDate) {
+            throw new \Exception('Изпитът не е достъпен.');
+        }
+    }
 }

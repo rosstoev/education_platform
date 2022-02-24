@@ -8,6 +8,13 @@
                     <h1 class="m-0">Изпити</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('warning') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-warning">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -73,7 +80,7 @@
                                         </td>
                                         <td>
                                             {% if exam.finishedAt == null %}
-                                                <a href="{{ path('student_test_take', {'examToken' : 1}) }}"
+                                                <a href="{{ path('student_test_take', {'token' : exam.teacherExam.token}) }}"
                                                    class="btn btn-secondary">Реши</a>
                                             {% endif %}
                                             <a href="{{ path('student_exam_result', {'token' : exam.teacherExam.token}) }}"

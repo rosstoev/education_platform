@@ -28,6 +28,7 @@ Encore
     .addEntry('student-admin', './assets/js/entries/student-admin.js')
     .addEntry('teacher-lecture', './assets/js/entries/teacher/lecture.js')
     .addEntry('test-exam', './assets/js/entries/teacher/test-exam.js')
+    .addEntry('take-exam', './assets/js/entries/take-exam.js')
 
     .addStyleEntry('styles', './assets/styles/app.css')
 
