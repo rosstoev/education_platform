@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{{ path('student_messenger_send_new') }}" class="link-primary">Изпрати съобщение</a>
+                    <a href="{{ path('student_messenger_send_new', {'receiver' : student.id}) }}" class="link-primary">Изпрати съобщение</a>
                 {% endif %}
 
 

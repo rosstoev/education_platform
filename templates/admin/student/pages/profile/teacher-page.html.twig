@@ -37,7 +37,7 @@
                                     <div> email: {{ teacher.email }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> мобиле номер: +359 {{ teacher.mobileNumber }}</div>
+                                    <div> мобилен номер: +359 {{ teacher.mobileNumber }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
                                     <h6>Дисцилини:</h6>
@@ -58,7 +58,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <a href="{{ path('student_messenger_send_new') }}" class="link-primary">Изпрати съобщение</a>
+                <a href="{{ path('student_messenger_send_new',  {'receiver' : teacher.id}) }}" class="link-primary">Изпрати съобщение</a>
             </div>
         </div>
         <!-- /.card -->
