@@ -4,6 +4,7 @@ namespace App\Repository\Education;
 
 use App\DTO\LectureFilterDTO;
 use App\Entity\Education\Lecture;
+use App\Entity\Student;
 use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,6 +44,17 @@ class LectureRepository extends ServiceEntityRepository
                     ->setParameter('toDate', $filter->getTo()->format('Y-m-d 23:59:59'));
             }
         }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByStudent(Student $student)
+    {
+        $qb = $this->createQueryBuilder('l')
+        ->leftJoin('l.studentGroup', 'studentGroup')
+        ->leftJoin('studentGroup.students', 'student')
+        ->where('student = :student')
+        ->setParameter('student', $student);
 
         return $qb->getQuery()->getResult();
     }

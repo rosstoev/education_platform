@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Student;
 
 
+use App\Handler\CalendarHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,15 @@ class StudentController extends AbstractController
     /**
      * @Route ("/dashboard", name="dashboard")
      */
-    public function dashboard(): Response
+    public function dashboard(CalendarHandler $calendarHandler): Response
     {
-        return $this->render("admin/student/pages/dashboard.html.twig");
+        /** @var \App\Entity\Student $student */
+        $student = $this->getUser();
+        $events = $calendarHandler->getStudentEvents($student);
+
+        return $this->render("admin/student/pages/dashboard.html.twig", [
+            'calendarEvents' => $events
+        ]);
     }
 
     /**
