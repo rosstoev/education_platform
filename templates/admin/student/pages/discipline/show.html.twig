@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Дисциплина Lorem Ipsum</h1>
+                    <h1 class="m-0">Дисциплина</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -17,7 +17,7 @@
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Дисциплина Lorem Ipsum</h3>
+                <h3 class="card-title">Дисциплина {{ discipline.name }}</h3>
 
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -31,17 +31,12 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12">
-                                    <div>Преподавател: <a href="{{ path('student_teacher', {'teacher' : 1}) }}">John Doe</a></div>
+                                    <div>Преподавател: <a href="{{ path('student_teacher', {'teacher' : discipline.teacher.id}) }}">{{ discipline.teacher.firstName }} {{ discipline.teacher.lastName }}</a></div>
                                 </div>
                                 <div class="col-12">
                                     <div>Описание:</div>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vehicula ligula
-                                        neque, eu dictum nibh luctus sed. Proin ullamcorper, metus ut ornare malesuada,
-                                        erat est porttitor erat, ut ultricies justo dolor sed est. Donec luctus interdum
-                                        purus ut sollicitudin. Vestibulum at libero mollis lacus vehicula suscipit.
-                                        Etiam eu tristique lorem. Donec turpis mi, tristique ut aliquet ut, viverra
-                                        convallis arcu.
+                                        {{ discipline.description }}
                                     </p>
                                 </div>
                             </div>

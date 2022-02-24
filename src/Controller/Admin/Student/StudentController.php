@@ -7,6 +7,7 @@ namespace App\Controller\Admin\Student;
 
 use App\DTO\UserDTO;
 use App\Entity\Student;
+use App\Entity\Teacher;
 use App\Form\ProfileType;
 use App\Handler\CalendarHandler;
 use App\Handler\UserHandler;
@@ -89,8 +90,10 @@ class StudentController extends AbstractController
     /**
      * @Route ("/teacher/{teacher}", name="teacher")
      */
-    public function teacher(int $teacher): Response
+    public function teacher(Teacher $teacher): Response
     {
-        return $this->render("admin/student/pages/profile/teacher-page.html.twig");
+        return $this->render("admin/student/pages/profile/teacher-page.html.twig", [
+            'teacher' => $teacher
+        ]);
     }
 }
