@@ -35,7 +35,7 @@ class LectureRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findByStudent(Student $student, ?LectureFilterDTO $filter)
+    public function findByStudent(Student $student, ?LectureFilterDTO $filter = null)
     {
         $qb = $this->createQueryBuilder('lecture')
         ->leftJoin('lecture.discipline', 'discipline')

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Form\Teacher\Exam;
+namespace App\Form\Student;
 
 
 use App\DTO\Exam\ExamFilterDTO;
@@ -23,25 +23,28 @@ class FilterExamType extends AbstractType
 
     public function __construct(Security $security)
     {
-
         $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $teacher = $this->security->getUser();
+        /** @var \App\Entity\Student $student */
+        $student = $this->security->getUser();
 
         $builder->setMethod("GET");
+
         $builder->add('discipline', EntityType::class, [
             'class' => Discipline::class,
             'label' => 'Дисциплина',
-            'query_builder' => function (DisciplineRepository $disciplineRepo) use ($teacher) {
+            'query_builder' => function (DisciplineRepository $disciplineRepo) use ($student) {
                 return $disciplineRepo->createQueryBuilder('discipline')
-                    ->where('discipline.teacher = :teacher')
-                    ->setParameter('teacher', $teacher);
+                    ->leftJoin('discipline.studentGroups', 'studentGroup')
+                    ->leftJoin('studentGroup.students', 'student')
+                    ->where('student = :student')
+                    ->setParameter('student', $student);
             },
             'choice_label' => 'name',
-            'placeholder' => 'Избери...',
+            'placeholder' => 'Избери...'
         ]);
 
         $builder->add('from', DateType::class, [
@@ -73,4 +76,5 @@ class FilterExamType extends AbstractType
             'csrf_protection' => false
         ]);
     }
+
 }

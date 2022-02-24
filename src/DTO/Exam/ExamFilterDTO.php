@@ -6,7 +6,7 @@ namespace App\DTO\Exam;
 
 use App\DTO\LectureFilterDTO;
 
-class TeacherExamFilterDTO extends LectureFilterDTO
+class ExamFilterDTO extends LectureFilterDTO
 {
 
 }

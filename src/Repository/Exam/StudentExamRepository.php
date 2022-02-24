@@ -2,7 +2,9 @@
 
 namespace App\Repository\Exam;
 
+use App\DTO\Exam\ExamFilterDTO;
 use App\Entity\Exam\StudentExam;
+use App\Entity\Student;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +21,42 @@ class StudentExamRepository extends ServiceEntityRepository
         parent::__construct($registry, StudentExam::class);
     }
 
-    // /**
-    //  * @return StudentExam[] Returns an array of StudentExam objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByStudent(Student $student, ?ExamFilterDTO $filter = null)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('se')
+            ->leftJoin('se.teacherExam', 'teacherExam')
+            ->where('se.author = :student')
+            ->setParameter('student', $student);
 
-    /*
-    public function findOneBySomeField($value): ?StudentExam
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!empty($filter)) {
+            if (!empty($filter->getDiscipline())) {
+                $qb->andWhere('teacherExam.discipline = :discipline')
+                    ->setParameter('discipline', $filter->getDiscipline());
+            }
+
+            if (!empty($filter->getFrom())) {
+                $qb->andWhere('teacherExam.startedAt >= :fromDate')
+                    ->setParameter('fromDate', $filter->getFrom()->format('Y-m-d'));
+            }
+
+            if (!empty($filter->getTo())) {
+                $qb->andWhere('teacherExam.startedAt <= :toDate')
+                    ->setParameter('toDate', $filter->getTo()->format('Y-m-d 23:59:59'));
+            }
+        }
+
+        return $qb->getQuery()->getResult();
     }
-    */
+
+    public function findByToken(Student $student, string $token)
+    {
+        $qb = $this->createQueryBuilder('se')
+            ->leftJoin('se.teacherExam', 'teacherExam')
+            ->where('se.author = :student')
+            ->andWhere('teacherExam.token = :token')
+        ->setParameters(['student' => $student, 'token' => $token]);
+
+        return $qb->getQuery()->getOneOrNullResult();
+
+    }
 }
