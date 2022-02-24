@@ -29,7 +29,7 @@
                     <a href="{{ path("student_profile") }}" class="nav-link {% if activeLinkProfile is defined %}active-green{% endif %}">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
-                            John Doe
+                            {{ app.user.firstName }} {{ app.user.lastName }}
                         </p>
                     </a>
                 </li>
@@ -81,7 +81,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path("teacher_messenger_inbox") }}"
+                    <a href="{{ path("student_messenger_inbox") }}"
                        class="nav-link {% if activeLinkMessenger is defined %}active-green{% endif %}">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
