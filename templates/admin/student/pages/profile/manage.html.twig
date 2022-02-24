@@ -17,50 +17,30 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="firstName">Име</label>
-                                            <input type="text" class="form-control" id="firstName" placeholder="Име">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="secondName">Презиме</label>
-                                            <input type="text" class="form-control" id="secondName" placeholder="Презиме">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="lastName">Фамилия</label>
-                                            <input type="text" class="form-control" id="lastName" placeholder="Фамилия">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="email">Имейл адрес</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Имейл адрес">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="mb-1">
-                                                <label class="" for="mobileNumber">Мобилен номер</label>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="mobile-code">+359</span>
-                                                <input id="mobileNumber" type="text" class="form-control" placeholder="XXXXXXXXX" aria-label="mobileNumber" aria-describedby="mobile-code">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="courseNumber">Курсов номер</label>
-                                            <input type="text" class="form-control" id="courseNumber" placeholder="Курсов номер">
-                                        </div>
-                                    </div>
+                        {{ form_start(form) }}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{ form_row(form.firstName) }}
+                                    {{ form_row(form.secondName) }}
+                                    {{ form_row(form.lastName) }}
                                 </div>
+                                <div class="col-6">
+                                    {{ form_row(form.email) }}
+                                    <label>Мобилен номер</label>
+                                    {{ form_row(form.mobileNumber) }}
+                                    {% if form.courseNumber is defined %}
+                                        {{ form_row(form.courseNumber) }}
+                                    {% endif %}
+                                </div>
+                            </div>
 
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-secondary">Запази</button>
-                            </div>
-                        </form>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-secondary">Запази</button>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
