@@ -4,10 +4,13 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Teacher;
 
 
+use App\DTO\Exam\EstimationDTO;
 use App\Entity\Education\Group;
+use App\Entity\Exam\Question\Question;
 use App\Entity\Exam\StudentExam;
 use App\Entity\Exam\TeacherExam;
 use App\Entity\Teacher;
+use App\Form\Teacher\Exam\EstimateType;
 use App\Form\Teacher\Exam\ExamType;
 use App\Form\Teacher\Exam\FilterExamType;
 use App\Form\Teacher\Exam\GroupExamType;
@@ -15,6 +18,8 @@ use App\Form\Teacher\Exam\StudentExamType;
 use App\Handler\StudentExamHandler;
 use App\Repository\Exam\StudentExamRepository;
 use App\Repository\Exam\TeacherExamRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -123,8 +128,12 @@ class ExamController extends AbstractController
     /**
      * @Route ("/{exam}/delete", name="delete")
      */
-    public function delete(int $exam)
+    public function delete(TeacherExam $exam, EntityManagerInterface $em): Response
     {
+        $em->remove($exam);
+        $em->flush();
+        $this->addFlash('examListWarning', 'Занятието е изтрито.');
+        return $this->redirectToRoute('teacher_exam_list');
 
     }
 
@@ -203,8 +212,73 @@ class ExamController extends AbstractController
     /**
      * @Route ("/{exam}/finished/check/{studentExam}", name="finished_exam_check")
      */
-    public function checkFinishedExam(int $exam, int $studentExam): Response
+    public function checkFinishedExam(
+        Request $request,
+        TeacherExam $exam,
+        StudentExam $studentExam,
+        StudentExamHandler $studentExamHandler,
+        EntityManagerInterface $em
+    ): Response
     {
-        return $this->render('admin/teacher/pages/exam/finished/check.html.twig');
+        try {
+            $studentExamHandler->validateForCheck($studentExam);
+        } catch (\Exception $ex) {
+            $this->addFlash('warning', $ex->getMessage());
+            return $this->redirectToRoute('teacher_exam_finished_exam_detail', ['exam' => $exam->getId(), 'studentExam' => $studentExam->getId()]);
+        }
+        $estimationDTO = new EstimationDTO();
+        $estimationDTO->setAnswers($studentExam->getAnswers());
+        $maxPoints = 0;
+        $answerPoints = 0;
+        foreach ($exam->getTest()->getQuestions() as $question) {
+            $maxPoints+= $question->getPoints();
+        }
+
+        foreach ($studentExam->getAnswers() as $answer) {
+            $answerPoints+= $answer->getPoints();
+        }
+
+        $form = $this->createForm(EstimateType::class, $estimationDTO);
+        $form->handleRequest($request);
+
+        if ($form->get('check')->isClicked()) {
+            /** @var EstimationDTO $data */
+            $data = $form->getData();
+            $temporaryEstimate = $studentExamHandler->temporaryEstimation($data, $maxPoints);
+            $data->setEstimate($temporaryEstimate);
+            $form = $this->createForm(EstimateType::class, $data);
+        }
+
+        if ($form->get('confirm')->isClicked()) {
+            /** @var EstimationDTO $data */
+            $data = $form->getData();
+            foreach ($data->getAnswers() as $key => $answer) {
+                if ($answer->getType() == Question::TYPE_OPEN) {
+                    $studentExam->getAnswers()->get($key)->setPoints($answer->getPoints());
+                }
+            }
+            $studentExam->setEvaluation($data->getEstimate());
+            $em->beginTransaction();
+            try {
+                $em->persist($studentExam);
+                $em->flush();
+                $em->commit();
+                $this->addFlash('success', 'Оценяването беше успешно!');
+                return $this->redirectToRoute('teacher_exam_finished_exam_detail', ['exam' => $exam->getId(), 'studentExam' => $studentExam->getId()]);
+            } catch (\Exception $ex) {
+                $em->rollback();
+                $this->addFlash('danger', 'Записа не може да бъде изпълнен, моля опитайте отново.');
+            }
+
+
+        }
+
+        return $this->render('admin/teacher/pages/exam/finished/check.html.twig', [
+            'form' => $form->createView(),
+            'studentExam' => $studentExam,
+            'maxPoints' => $maxPoints,
+            'answerPoints' => $answerPoints
+
+        ]);
     }
 }

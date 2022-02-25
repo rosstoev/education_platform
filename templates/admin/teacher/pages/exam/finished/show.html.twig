@@ -8,6 +8,20 @@
                     <h1 class="m-0">Изпит</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('warning') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-warning">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-success">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -65,7 +79,7 @@
                 <div class="row justify-content-between">
                     <div class="col-3">
                         {% if studentExam.finishedAt != null %}
-                            <a href="{{ path('teacher_exam_finished_exam_check', {'exam' : 1, 'studentExam' : 1}) }}"
+                            <a href="{{ path('teacher_exam_finished_exam_check', {'exam' : studentExam.teacherExam.id, 'studentExam' : studentExam.id}) }}"
                                class=" btn btn-primary">Провери</a>
                         {% endif %}
                     </div>

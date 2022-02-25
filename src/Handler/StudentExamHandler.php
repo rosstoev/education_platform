@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Handler;
 
 
+use App\DTO\Exam\EstimationDTO;
+use App\Entity\Exam\Question\Question;
 use App\Entity\Exam\StudentExam;
 use App\Entity\Exam\TeacherExam;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,7 +38,29 @@ class StudentExamHandler
 
     }
 
-    public function validateForTaking(?StudentExam $studentExam):void
+    public function temporaryEstimation(EstimationDTO $estimationDTO, int $maxPoints): int
+    {
+        $studentPoints = 0;
+        foreach ($estimationDTO->getAnswers() as $answer) {
+            if ($answer->getType() == Question::TYPE_OPEN) {
+                $studentPoints+= $answer->getPoints() != null ? $answer->getPoints() : 0;
+            } else {
+                foreach ($answer->getChoices() as $choice) {
+                    $studentPoints+= $choice->getPoints();
+                }
+            }
+        }
+
+        $estimate = intval(round(($studentPoints / $maxPoints) * 6));
+
+        if ($estimate < 2) {
+            $estimate = 2;
+        }
+
+        return $estimate;
+    }
+
+    public function validateForTaking(?StudentExam $studentExam): void
     {
         $now = new \DateTime();
         if (empty($studentExam)) {
@@ -46,6 +70,19 @@ class StudentExamHandler
         $startedDate = $studentExam->getTeacherExam()->getStartedAt()->modify('- 2 min');
         if ($now < $startedDate) {
             throw new \Exception('Изпитът не е достъпен.');
+        }
+    }
+
+    public function validateForCheck(?StudentExam $studentExam): void
+    {
+        if (empty($studentExam)) {
+            throw new \Exception('Изпитът не съществува.');
+        }
+        if ($studentExam->getFinishedAt() === null) {
+            throw new \Exception('Изпитът не проведен.');
+        }
+        if ($studentExam->getEvaluation() !== null) {
+            throw new \Exception('Изпитът вече е оценен.');
         }
     }
 }
