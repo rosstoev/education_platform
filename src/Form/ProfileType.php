@@ -67,7 +67,7 @@ class ProfileType extends AbstractType
         $builder->add('mobileNumber', TextType::class, [
             'label' => '+359',
             'row_attr' => [
-                'class' => 'input-group'
+                'class' => 'input-group mb-3'
             ],
             'attr' => ['placeholder' => 'XXXXXXXXX'],
             'constraints' => [

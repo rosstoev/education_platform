@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Form\Teacher\Exam;
+namespace App\Form\Student;
 
 
-use App\DTO\Exam\ExamFilterDTO;
+use App\DTO\GroupFilterDTO;
 use App\Entity\Education\Discipline;
 use App\Repository\Education\DisciplineRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 
-class FilterExamType extends AbstractType
+class FilterGroupType extends AbstractType
 {
     /**
      * @var \Symfony\Component\Security\Core\Security
@@ -23,53 +23,48 @@ class FilterExamType extends AbstractType
 
     public function __construct(Security $security)
     {
-
         $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $teacher = $this->security->getUser();
+        /** @var \App\Entity\Student $student */
+        $student = $this->security->getUser();
 
         $builder->setMethod("GET");
+
         $builder->add('discipline', EntityType::class, [
             'class' => Discipline::class,
             'label' => 'Дисциплина',
-            'query_builder' => function (DisciplineRepository $disciplineRepo) use ($teacher) {
+            'query_builder' => function (DisciplineRepository $disciplineRepo) use ($student) {
                 return $disciplineRepo->createQueryBuilder('discipline')
-                    ->where('discipline.teacher = :teacher')
-                    ->setParameter('teacher', $teacher);
+                    ->leftJoin('discipline.studentGroups', 'studentGroup')
+                    ->leftJoin('studentGroup.students', 'student')
+                    ->where('student = :student')
+                    ->setParameter('student', $student);
             },
             'choice_label' => 'name',
-            'placeholder' => 'Избери...',
+            'placeholder' => 'Избери...'
         ]);
 
-        $builder->add('from', DateType::class, [
-            'widget' => 'single_text',
-            'html5' => false,
+        $builder->add('year', TextType::class, [
+            'label' => '<i class="far fa-calendar-alt"></i>',
             'label_html' => true,
-            'format' => 'dd.MM.yyyy',
-            'label' => '<i class="fa fa-calendar"></i>',
-            'row_attr' => ['class' => 'input-group date'],
-            'attr' => ['class' => 'datepicker-field']
+            'row_attr' => ['class' => 'input-group'],
+            'attr' => [
+                'class' => 'year-mask',
+                'data-inputmask-alias' => 'datetime',
+                'data-inputmask-inputformat' => 'yyyy',
+            ],
         ]);
 
-        $builder->add('to', DateType::class, [
-            'widget' => 'single_text',
-            'html5' => false,
-            'label_html' => true,
-            'format' => 'dd.MM.yyyy',
-            'label' => '<i class="fa fa-calendar"></i>',
-            'row_attr' => ['class' => 'input-group date'],
-            'attr' => ['class' => 'datepicker-field']
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         return $resolver->setDefaults([
             'required' => false,
-            'data_class' => ExamFilterDTO::class,
+            'data_class' => GroupFilterDTO::class,
             'csrf_protection' => false
         ]);
     }

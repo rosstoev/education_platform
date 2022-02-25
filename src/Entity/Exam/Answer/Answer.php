@@ -53,6 +53,8 @@ class Answer
      */
     private $studentExam;
 
+    private ?Choice $choice = null;
+
     public function __construct()
     {
         $this->choices = new ArrayCollection();
@@ -151,5 +153,21 @@ class Answer
         $this->studentExam = $studentExam;
 
         return $this;
+    }
+
+    /**
+     * @return \App\Entity\Exam\Question\Choice|null
+     */
+    public function getChoice(): ?Choice
+    {
+        return $this->choice;
+    }
+
+    /**
+     * @param \App\Entity\Exam\Question\Choice|null $choice
+     */
+    public function setChoice(?Choice $choice): void
+    {
+        $this->choice = $choice;
     }
 }

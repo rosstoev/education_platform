@@ -4,6 +4,7 @@ namespace App\Repository\Education;
 
 use App\DTO\GroupFilterDTO;
 use App\Entity\Education\Group;
+use App\Entity\Student;
 use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,18 +27,44 @@ class GroupRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('g')
             ->where('g.teacher = :teacher')
             ->setParameter('teacher', $teacher);
+
         if (!empty($filterDTO)) {
             if (!empty($filterDTO->getDiscipline())) {
                 $qb->leftJoin('g.disciplines', 'discipline')
-                ->orWhere('discipline = :discipline')
+                ->andWhere('discipline = :discipline')
                 ->setParameter('discipline', $filterDTO->getDiscipline());
             }
 
             if (!empty($filterDTO->getYear())) {
                 $dateInit = new \DateTime();
                 $year = date_create($dateInit->format($filterDTO->getYear() . '-m-d'));
-                $qb->orWhere('g.year = :year')
+                $qb->andWhere('g.year = :year')
                 ->setParameter('year', $year);
+            }
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByStudent(Student $student, ?GroupFilterDTO $filter = null)
+    {
+        $qb = $this->createQueryBuilder('g')
+        ->leftJoin('g.students', 'student')
+        ->where('student = :student')
+        ->setParameter('student', $student);
+
+        if (!empty($filter)) {
+            if (!empty($filter->getDiscipline())) {
+                $qb->leftJoin('g.disciplines', 'discipline')
+                    ->andWhere('discipline = :discipline')
+                    ->setParameter('discipline', $filter->getDiscipline());
+            }
+
+            if (!empty($filter->getYear())) {
+                $dateInit = new \DateTime();
+                $year = date_create($dateInit->format($filter->getYear() . '-m-d'));
+                $qb->andWhere('g.year = :year')
+                    ->setParameter('year', $year);
             }
         }
 

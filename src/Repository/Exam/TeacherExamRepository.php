@@ -2,7 +2,7 @@
 
 namespace App\Repository\Exam;
 
-use App\DTO\Exam\TeacherExamFilterDTO;
+use App\DTO\Exam\ExamFilterDTO;
 use App\DTO\LectureFilterDTO;
 use App\Entity\Exam\TeacherExam;
 use App\Entity\Teacher;
@@ -22,7 +22,7 @@ class TeacherExamRepository extends ServiceEntityRepository
         parent::__construct($registry, TeacherExam::class);
     }
 
-    public function findByTeacher(Teacher $teacher, ?TeacherExamFilterDTO $filter = null)
+    public function findByTeacher(Teacher $teacher, ?ExamFilterDTO $filter = null)
     {
         $qb = $this->createQueryBuilder('teacher_exam')
             ->where('teacher_exam.creator = :teacher')

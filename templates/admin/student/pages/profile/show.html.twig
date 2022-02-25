@@ -8,6 +8,13 @@
                     <h1 class="m-0">Ученик</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('success') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-success">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -31,16 +38,17 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div> Имена: John Doe Doe</div>
+                                    <div>
+                                        Имена: {{ student.firstName }} {{ student.secondName }} {{ student.lastName }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> email: john_doe@example.com</div>
+                                    <div> email: {{ student.email }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> курсов номер: 22005010</div>
+                                    <div> курсов номер: {{ student.courseNumber }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div> мобиле номер: +359 888888888</div>
+                                    <div> мобилен номер: +359 {{ student.mobileNumber }}</div>
                                 </div>
                             </div>
                         </div>
@@ -49,15 +57,20 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <a href="{{ path('student_messenger_send_new') }}" class="link-primary">Изпрати съобщение</a>
-                <div class="row justify-content-between">
-                    <div class="col-3">
-                        <a href="{{ path('student_profile_edit') }}" class=" btn btn-secondary">Редактирай</a>
+                {% if app.user == student %}
+                    <div class="row justify-content-between">
+                        <div class="col-3">
+                            <a href="{{ path('student_profile_edit') }}" class=" btn btn-secondary">Редактирай</a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{ path('student_profile_delete') }}" class=" btn btn-danger">Изтрий</a>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{ path('student_profile_delete') }}" class=" btn btn-danger">Изтрий</a>
-                    </div>
-                </div>
+                {% else %}
+                    <a href="{{ path('student_messenger_send_new', {'receiver' : student.id}) }}" class="link-primary">Изпрати съобщение</a>
+                {% endif %}
+
+
             </div>
         </div>
         <!-- /.card -->

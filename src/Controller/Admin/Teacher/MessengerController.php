@@ -39,10 +39,15 @@ class MessengerController extends AbstractController
      */
     public function read(Message $message, EntityManagerInterface $em): Response
     {
-        $message->setIsReaded(true);
-        $em->persist($message);
-        $em->flush();
+        /** @var \App\Entity\Teacher $teacher */
+        $teacher = $this->getUser();
 
+        if ($teacher == $message->getReceiver()) {
+            $message->setIsReaded(true);
+            $em->persist($message);
+            $em->flush();
+        }
+        
         return $this->render("admin/messenger/read.html.twig", [
             'teacher' => true,
             'message' => $message
