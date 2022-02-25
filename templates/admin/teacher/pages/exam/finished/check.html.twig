@@ -8,6 +8,13 @@
                     <h1 class="m-0">Проверка на изпит</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {% for message in app.flashes('danger') %}
+                <div class="row mt-3">
+                    <div class="col-auto">
+                        <div class="alert alert-danger">{{ message }}</div>
+                    </div>
+                </div>
+            {% endfor %}
         </div><!-- /.container-fluid -->
     </div>
 
@@ -16,77 +23,74 @@
 
         <!-- Default box -->
         <div class="card">
-            <form action="">
-                <div class="card-header">
-                    <h3 class="card-title">Проверка на изпит 1 на John Doe</h3>
+            {{ form_start(form) }}
+            <div class="card-header">
+                <h3 class="card-title">Проверка на изпит {{ studentExam.teacherExam.token}} на {{ studentExam.author.firstName }} {{ studentExam.author.lastName }}</h3>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label for="evaluation">Оценка</label>
-                                        <select class="form-control" name="evaluation">
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                        </select>
-                                    </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    {{ form_row(form.estimate) }}
                                 </div>
-                                <div class="col-4 mt-4">
-                                    <div>Брой точки на изпита: 30</div>
-                                    <div>Брой точки на изпита: 25</div>
-                                </div>
+                            </div>
+                            <div class="col-4 mt-4">
+                                <div>Брой точки на изпита: {{ maxPoints }}</div>
+                                <div>Брой точки на изпита: {{ answerPoints }}</div>
+                            </div>
+                            {% set isCorrectTypes = {1: 'Верен', 0: 'Грешен'} %}
+                            {% for answer in form.answers %}
+                                {% set question = answer.vars.value.question %}
+                                {% set answerContent = answer.vars.value %}
                                 <div class="col-12">
                                     <div class="card bg-light my-3 p-2">
-                                        <div>Въпрос: Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
-                                        <div>Отговор: Vestibulum et rhoncus velit. Sed ut consequat ligula, nec mattis nunc.</div>
-                                        <div>Макс. точки: 5</div>
+                                        <div>Въпрос: {{ question.text }}</div>
+                                        {% if answerContent.type == 'open' %}
+                                            <div>Необходим брой думи: {{ question.textLength }}</div>
+                                            <div>Отговор: {{ answerContent.text }}</div>
+                                            <div>Брой думи: {{ answerContent.text|split(' ')|length }}</div>
+                                        {% else %}
+                                            <div>Отговор:</div>
+                                            <ul>
+                                                {% for choice in answerContent.choices %}
+                                                    <li>{{ choice.possibility }}
+                                                        - {{ isCorrectTypes[choice.isCorrect] }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        <div>Макс. точки: {{ question.points }}</div>
                                         <div class="form-group col-2 p-0">
-                                            <label for="points">Точки:</label>
-                                            <input type="number" name="points" class="form-control" placeholder="Брой точки">
+                                            {{ form_row(answer.points) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="card bg-light my-3 p-2">
-                                        <div>Въпрос: Lorem ipsum dolor sit amet, consectetur adipiscing elit?</div>
-                                        <div>Отговор: </div>
-                                        <ul>
-                                            <li>dolor sit amet - Верен</li>
-                                        </ul>
-                                        <div>Макс. точки: 3</div>
-                                        <div>Получени точки: 3</div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <div class="row justify-content-between">
-                        <div class="col-3">
-                            <button type="submit" class="btn btn-primary">Изчисли</button>
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary">Потвърди</button>
-                        </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <div class="row justify-content-between">
+                    <div class="col-3">
+                        {{ form_widget(form.check) }}
+                    </div>
+                    <div class="col-auto">
+                        {{ form_widget(form.confirm) }}
                     </div>
                 </div>
-            </form>
+            </div>
+            {{ form_end(form) }}
         </div>
         <!-- /.card -->
-
     </section>
     <!-- /.content -->
 {% endblock %}

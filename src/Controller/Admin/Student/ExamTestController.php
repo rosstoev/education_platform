@@ -77,8 +77,6 @@ class ExamTestController extends AbstractController
                 if($answer->getChoice()) {
                     $answer->addChoice($answer->getChoice());
                     $answer->setPoints($answer->getChoice()->getPoints());
-                } else {
-                    $answer->setPoints($question->getPoints());
                 }
                 $answer->setQuestion($question);
                 $answer->setType($question->getType());

@@ -44,7 +44,7 @@ class Answer
     private $text;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $points;
 
@@ -136,7 +136,7 @@ class Answer
         return $this->points;
     }
 
-    public function setPoints(int $points): self
+    public function setPoints(?int $points): self
     {
         $this->points = $points;
 
