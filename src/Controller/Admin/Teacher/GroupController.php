@@ -28,7 +28,6 @@ class GroupController extends AbstractController
     {
         /** @var Teacher $teacher */
         $teacher = $this->getUser();
-//        $groups = $groupRepo->findBy(['teacher' => $teacher]);
 
         $form = $this->createForm(FilterType::class);
         $form->handleRequest($request);
