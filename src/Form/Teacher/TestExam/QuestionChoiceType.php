@@ -19,7 +19,7 @@ class QuestionChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('possibility', TextType::class, [
-            'label' => 'Отговор',
+            'label' => 'Отговор*',
             'attr' => ['placeholder' => 'Отговор'],
             'constraints' => [
                 new NotBlank(['groups' => ValidationGroup::GROUP_CHOICE_QUESTION])
@@ -27,7 +27,7 @@ class QuestionChoiceType extends AbstractType
         ]);
 
         $builder->add('isCorrect', ChoiceType::class, [
-            'label' => 'Верен',
+            'label' => 'Верен*',
             'expanded' => true,
             'placeholder' => false,
             'choices' => ['Да' => 1, 'Не' => 0],
@@ -40,7 +40,7 @@ class QuestionChoiceType extends AbstractType
         ]);
 
         $builder->add('points', IntegerType::class, [
-            'label' => 'Точки',
+            'label' => 'Точки*',
             'attr' => ['placeholder' => 'Брой точки', 'min' => '0'],
             'constraints' => [
                 new NotBlank(['groups' => ValidationGroup::GROUP_CHOICE_QUESTION])

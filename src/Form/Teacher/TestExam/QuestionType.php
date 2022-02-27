@@ -21,7 +21,7 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('type', ChoiceType::class, [
-            'label' => 'Тип въпрос',
+            'label' => 'Тип въпрос*',
             'expanded' => true,
             'placeholder' => false,
             'choices' => ['Отворен' => Question::TYPE_OPEN, 'С отговори' => Question::TYPE_CHOICES],
@@ -34,7 +34,7 @@ class QuestionType extends AbstractType
         ]);
 
         $builder->add('text', TextareaType::class, [
-            'label' => 'Въпрос',
+            'label' => 'Въпрос*',
             'attr' => ['placeholder' => 'Същност на въпроса', 'rows' => '3'],
              'constraints' => [
                  new NotBlank(['groups' => ValidationGroup::GROUP_DEFAULT])
@@ -42,7 +42,7 @@ class QuestionType extends AbstractType
         ]);
 
         $builder->add('textLength', IntegerType::class, [
-            'label' => 'Мин. дължина на отговора',
+            'label' => 'Мин. дължина на отговора*',
             'attr' => ['placeholder' => 'Брой думи', 'min' => '1'],
             'constraints' => [
                 new NotBlank(['groups' => ValidationGroup::GROUP_OPEN_QUESTION])
@@ -50,7 +50,7 @@ class QuestionType extends AbstractType
         ]);
 
         $builder->add('points', IntegerType::class, [
-            'label' => 'Макс. точки',
+            'label' => 'Макс. точки*',
             'attr' => ['placeholder' => 'Брой точки', 'min' => '1'],
             'constraints' => [
                 new NotBlank(['groups' => ValidationGroup::GROUP_OPEN_QUESTION])

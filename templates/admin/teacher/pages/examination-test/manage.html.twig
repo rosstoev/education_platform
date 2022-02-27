@@ -37,7 +37,7 @@
                                                         <div id="open-question-parts-{{ index }}">
                                                             <div class="col-12">
                                                                 <div class="row">
-                                                                    <div class="col-4">
+                                                                    <div class="col-5">
                                                                         {{ form_row(question.textLength) }}
                                                                     </div>
                                                                     <div class="col-4">
@@ -130,15 +130,15 @@
             <div class="col-12">
                 <div class="row">
                     <div class="col-6">
-                        <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_--choice-index--_possibility" class="form-label">Отговор</label><input type="text" id="test_exam_questions_--question-index--_choices_--choice-index--_possibility" name="test_exam[questions][--question-index--][choices][--choice-index--][possibility]" placeholder="Отговор" class="form-control">        </div>
+                        <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_--choice-index--_possibility" class="form-label">Отговор*</label><input type="text" id="test_exam_questions_--question-index--_choices_--choice-index--_possibility" name="test_exam[questions][--question-index--][choices][--choice-index--][possibility]" placeholder="Отговор" class="form-control">        </div>
                     </div>
                     <div class="col-3">
-                        <fieldset class="mb-3"><legend class="col-form-label">Верен</legend><div id="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect"><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect_0" name="test_exam[questions][--question-index--][choices][--choice-index--][isCorrect]" class="form-check-input" value="1">
+                        <fieldset class="mb-3"><legend class="col-form-label">Верен*</legend><div id="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect"><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect_0" name="test_exam[questions][--question-index--][choices][--choice-index--][isCorrect]" class="form-check-input" value="1">
                                     <label class="form-check-label" for="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect_0">Да</label></div><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect_1" name="test_exam[questions][--question-index--][choices][--choice-index--][isCorrect]" class="form-check-input" value="0">
                                     <label class="form-check-label" for="test_exam_questions_--question-index--_choices_--choice-index--_isCorrect_1">Не</label></div></div>        </fieldset>
                     </div>
                     <div class="col-3">
-                        <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_--choice-index--_points" class="form-label">Точки</label><input type="number" id="test_exam_questions_--question-index--_choices_--choice-index--_points" name="test_exam[questions][--question-index--][choices][--choice-index--][points]" placeholder="Брой точки" min="0" class="form-control">        </div>
+                        <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_--choice-index--_points" class="form-label">Точки*</label><input type="number" id="test_exam_questions_--question-index--_choices_--choice-index--_points" name="test_exam[questions][--question-index--][choices][--choice-index--][points]" placeholder="Брой точки" min="0" class="form-control">        </div>
                     </div>
                 </div>
             </div>
@@ -149,22 +149,22 @@
         <div class="card bg-light my-3 p-2 question-card" data-question-index="--question-index--">
             <div class="row">
                 <div class="col-12">
-                    <fieldset class="mb-3"><legend class="col-form-label">Тип въпрос</legend><div id="test_exam_questions_--question-index--_type" class="question-type"><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_type_0" name="test_exam[questions][--question-index--][type]" class="form-check-input" value="open">
+                    <fieldset class="mb-3"><legend class="col-form-label">Тип въпрос*</legend><div id="test_exam_questions_--question-index--_type" class="question-type"><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_type_0" name="test_exam[questions][--question-index--][type]" class="form-check-input" value="open">
                                 <label class="form-check-label" for="test_exam_questions_--question-index--_type_0">Отворен</label></div><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_type_1" name="test_exam[questions][--question-index--][type]" class="form-check-input" value="choices">
                                 <label class="form-check-label" for="test_exam_questions_--question-index--_type_1">С отговори</label></div></div>        </fieldset>
                 </div>
                 <div class="m-0 p-0 question-content">
                     <div class="col-12">
-                        <div class="mb-3"><label for="test_exam_questions_--question-index--_text" class="form-label">Въпрос</label><textarea id="test_exam_questions_--question-index--_text" name="test_exam[questions][--question-index--][text]" placeholder="Същност на въпроса" rows="3" class="form-control"></textarea>        </div>
+                        <div class="mb-3"><label for="test_exam_questions_--question-index--_text" class="form-label">Въпрос*</label><textarea id="test_exam_questions_--question-index--_text" name="test_exam[questions][--question-index--][text]" placeholder="Същност на въпроса" rows="3" class="form-control"></textarea>        </div>
                     </div>
                     <div id="open-question-parts---question-index--" style="display: none;">
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-4">
-                                    <div class="mb-3"><label for="test_exam_questions_--question-index--_textLength" class="form-label">Мин. дължина на отговора</label><input type="number" id="test_exam_questions_--question-index--_textLength" name="test_exam[questions][--question-index--][textLength]" placeholder="Брой думи" min="1" class="form-control">        </div>
+                                <div class="col-5">
+                                    <div class="mb-3"><label for="test_exam_questions_--question-index--_textLength" class="form-label">Мин. дължина на отговора*</label><input type="number" id="test_exam_questions_--question-index--_textLength" name="test_exam[questions][--question-index--][textLength]" placeholder="Брой думи" min="1" class="form-control">        </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="mb-3"><label for="test_exam_questions_--question-index--_points" class="form-label">Макс. точки</label><input type="number" id="test_exam_questions_--question-index--_points" name="test_exam[questions][--question-index--][points]" placeholder="Брой точки" min="1" class="form-control">        </div>
+                                    <div class="mb-3"><label for="test_exam_questions_--question-index--_points" class="form-label">Макс. точки*</label><input type="number" id="test_exam_questions_--question-index--_points" name="test_exam[questions][--question-index--][points]" placeholder="Брой точки" min="1" class="form-control">        </div>
                                 </div>
                             </div>
                         </div>
@@ -179,15 +179,15 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col-6">
-                                            <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_0_possibility" class="form-label">Отговор</label><input type="text" id="test_exam_questions_--question-index--_choices_0_possibility" name="test_exam[questions][--question-index--][choices][0][possibility]" placeholder="Отговор" class="form-control">        </div>
+                                            <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_0_possibility" class="form-label">Отговор*</label><input type="text" id="test_exam_questions_--question-index--_choices_0_possibility" name="test_exam[questions][--question-index--][choices][0][possibility]" placeholder="Отговор" class="form-control">        </div>
                                         </div>
                                         <div class="col-3">
-                                            <fieldset class="mb-3"><legend class="col-form-label">Верен</legend><div id="test_exam_questions_--question-index--_choices_0_isCorrect"><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_choices_0_isCorrect_0" name="test_exam[questions][--question-index--][choices][0][isCorrect]" class="form-check-input" value="1">
+                                            <fieldset class="mb-3"><legend class="col-form-label">Верен*</legend><div id="test_exam_questions_--question-index--_choices_0_isCorrect"><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_choices_0_isCorrect_0" name="test_exam[questions][--question-index--][choices][0][isCorrect]" class="form-check-input" value="1">
                                                         <label class="form-check-label" for="test_exam_questions_--question-index--_choices_0_isCorrect_0">Да</label></div><div class="form-check form-check-inline"><input type="radio" id="test_exam_questions_--question-index--_choices_0_isCorrect_1" name="test_exam[questions][--question-index--][choices][0][isCorrect]" class="form-check-input" value="0">
                                                         <label class="form-check-label" for="test_exam_questions_--question-index--_choices_0_isCorrect_1">Не</label></div></div>        </fieldset>
                                         </div>
                                         <div class="col-3">
-                                            <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_0_points" class="form-label">Точки</label><input type="number" id="test_exam_questions_--question-index--_choices_0_points" name="test_exam[questions][--question-index--][choices][0][points]" placeholder="Брой точки" min="0" class="form-control">        </div>
+                                            <div class="mb-3"><label for="test_exam_questions_--question-index--_choices_0_points" class="form-label">Точки*</label><input type="number" id="test_exam_questions_--question-index--_choices_0_points" name="test_exam[questions][--question-index--][choices][0][points]" placeholder="Брой точки" min="0" class="form-control">        </div>
                                         </div>
                                     </div>
                                 </div>

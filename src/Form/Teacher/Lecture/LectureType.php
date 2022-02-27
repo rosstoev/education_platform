@@ -47,7 +47,7 @@ class LectureType extends AbstractType
         /** @var Teacher $teacher */
         $teacher = $this->security->getUser();
         $builder->add('startDate', DateTimeType::class, [
-            'label' => 'Дата и час на провеждане',
+            'label' => 'Дата и час на провеждане*',
             'widget' => 'single_text',
             'constraints' => [
                 new NotBlank()
@@ -55,7 +55,7 @@ class LectureType extends AbstractType
         ]);
 
         $builder->add('name', TextType::class, [
-            'label' => 'Тема',
+            'label' => 'Тема*',
             'attr' => ['placeholder' => 'Тема на занятието'],
             'constraints' => [
                 new NotBlank()
@@ -64,7 +64,7 @@ class LectureType extends AbstractType
 
         $builder->add('discipline', EntityType::class, [
             'class' => Discipline::class,
-            'label' => 'Дисциплина',
+            'label' => 'Дисциплина*',
             'query_builder' => function (DisciplineRepository $disciplineRepo) use ($teacher) {
                 return $disciplineRepo->createQueryBuilder('discipline')
                     ->where('discipline.teacher = :teacher')
@@ -100,7 +100,7 @@ class LectureType extends AbstractType
         }
 
         $form->add('studentGroup', ChoiceType::class, [
-            'label' => 'Група',
+            'label' => 'Група*',
             'attr' => ['class' => 'my-select2-js'],
             'placeholder' => 'Избери...',
             'choices' => $groups,

@@ -1,64 +1,67 @@
 {% extends "admin/student/base_layout.html.twig" %}
 
 {% block content %}
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Изпит</h1>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Изпит</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
 
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div id="remaining-time" data-now="{{ nowTimestamp }}" data-end-at="{{ endAtTimestamp }}"></div>
-                        <h3 class="card-title">Оставащо време: <span id="execute-timer"></span></h3>
-                    </div>
-                    <!-- form start -->
-                    {{ form_start(form) }}
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                {% if form.text is not defined and form.choice is not defined %}
-                                    <div>Времето за попълване на въпросите изтече.</div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div id="remaining-time" data-now="{{ nowTimestamp }}"
+                                 data-end-at="{{ endAtTimestamp }}"></div>
+                            <h3 class="card-title">Оставащо време: {% if nowTimestamp < endAtTimestamp %}<span id="execute-timer"></span>{% endif %}</h3>
+                        </div>
+                        <!-- form start -->
+                        {{ form_start(form) }}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    {% if form.text is not defined and form.choice is not defined %}
+                                        <div>Времето за попълване на въпросите изтече.</div>
                                     {% else %}
                                         <div>Въпрос {{ questionIndex }}:</div>
-                                {% endif %}
+                                    {% endif %}
 
-                                {% if form.text is defined %}
-                                    {{ form_row(form.text) }}
-                                {% endif %}
-                                {% if form.choice is defined %}
-                                {{ form_row(form.choice) }}
+                                    {% if form.text is defined %}
+                                        {{ form_row(form.text) }}
+                                    {% endif %}
+                                    {% if form.choice is defined %}
+                                        {{ form_row(form.choice) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    {{ form_widget(form.back) }}
+                                    {{ form_widget(form.next) }}
+                                </div>
+                                {% if form.finish is defined %}
+                                    <div class="col-auto">
+                                        {{ form_widget(form.finish) }}
+                                    </div>
                                 {% endif %}
                             </div>
                         </div>
+                        {{ form_end(form) }}
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <div class="row justify-content-between">
-                            <div class="col-auto">
-                                {{ form_widget(form.back) }}
-                                {{ form_widget(form.next) }}
-                            </div>
-                            <div class="col-auto">
-                                {{ form_widget(form.finish) }}
-                            </div>
-                        </div>
-                    </div>
-                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
