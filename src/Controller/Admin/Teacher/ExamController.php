@@ -269,8 +269,6 @@ class ExamController extends AbstractController
                 $em->rollback();
                 $this->addFlash('danger', 'Записа не може да бъде изпълнен, моля опитайте отново.');
             }
-
-
         }
 
         return $this->render('admin/teacher/pages/exam/finished/check.html.twig', [

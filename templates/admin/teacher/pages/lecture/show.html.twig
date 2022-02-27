@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="row">
                                 <div class="col-12 mb-2">
-                                    <div> Дата на провеждане: 01.01.2021 13:00</div>
+                                    <div> Дата на провеждане: {{ lecture.startDate|date('d.m.Y H:i') }}</div>
                                 </div>
                                 <div class="col-12 mb-2">
                                     <div> Група: <a href="{{ path('teacher_group_show', {'group' : lecture.studentGroup.id}) }}">{{ lecture.studentGroup.course }} | {{ lecture.studentGroup.formatStudyYear }}</a></div>

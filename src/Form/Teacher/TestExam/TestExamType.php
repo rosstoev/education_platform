@@ -17,7 +17,7 @@ class TestExamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class, [
-            'label' => 'Заглавие',
+            'label' => 'Заглавие*',
             'attr' => ['placeholder' => 'Име на теста'],
             'constraints' => new NotBlank()
         ]);

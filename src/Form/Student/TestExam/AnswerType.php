@@ -24,8 +24,9 @@ class AnswerType extends AbstractType
         $exam = $options['exam'];
         $now = new \DateTime();
         $endDate = $exam->getTeacherExam()->getEndAt()->modify('+ 2 minutes');
+        $startDate = $exam->getTeacherExam()->getStartedAt()->modify('-2 minutes');
 
-        if ($now < $endDate) {
+        if ($now < $endDate && $now > $startDate) {
             if ($question->getType() == Question::TYPE_OPEN) {
                 $builder->add('text', TextareaType::class, [
                     'label' => $question->getText(),

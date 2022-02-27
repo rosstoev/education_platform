@@ -37,7 +37,7 @@ class ExamType extends AbstractType
         $teacher = $this->security->getUser();
 
         $builder->add('startedAt', DateTimeType::class, [
-            'label' => 'Дата и час на провеждане',
+            'label' => 'Дата и час на провеждане*',
             'widget' => 'single_text',
             'constraints' => [
                 new NotBlank()
@@ -45,7 +45,7 @@ class ExamType extends AbstractType
         ]);
 
         $builder->add('executionTime', IntegerType::class, [
-            'label' => 'Време на провеждане',
+            'label' => 'Време на провеждане*',
             'attr' => ['placeholder' => 'Минути', 'min' => '1'],
             'constraints' => [
                 new NotBlank()
@@ -54,7 +54,7 @@ class ExamType extends AbstractType
 
         $builder->add('discipline', EntityType::class, [
             'class' => Discipline::class,
-            'label' => 'Дисциплина',
+            'label' => 'Дисциплина*',
             'query_builder' => function (DisciplineRepository $disciplineRepo) use ($teacher) {
                 return $disciplineRepo->createQueryBuilder('discipline')
                     ->where('discipline.teacher = :teacher')
@@ -70,7 +70,7 @@ class ExamType extends AbstractType
 
         $builder->add('test', EntityType::class, [
             'class' => Test::class,
-            'label' => 'Тест',
+            'label' => 'Тест*',
             'query_builder' => function (TestRepository $testRepository) use ($teacher) {
                 return $testRepository->createQueryBuilder('testExam')
                     ->where('testExam.author = :teacher')

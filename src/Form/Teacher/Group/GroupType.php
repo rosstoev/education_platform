@@ -28,7 +28,7 @@ class GroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('course', IntegerType::class, [
-            'label' => 'Номер на курс/клас',
+            'label' => 'Номер на курс/клас*',
             'attr' => ['placeholder' => 'номер', 'min' => '1'],
             'constraints' => [
                 new NotBlank()
