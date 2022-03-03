@@ -162,6 +162,15 @@ class TeacherExam
     public function createExecutionMinutes()
     {
         $diff = $this->getStartedAt()->diff($this->getEndAt());
-        $this->executionTime = $diff->i;
+        $minutes = 0;
+        if ($diff->i > 0){
+            $minutes = $diff->i;
+        }
+
+        if ($diff->h > 0) {
+            $minutes = $diff->h * 60;
+        }
+        $this->executionTime = $minutes;
+
     }
 }
